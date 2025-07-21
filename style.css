@@ -77,6 +77,10 @@ padding: 12px 15px;
 border-left: 1px solid #dddddd;
 }
 
+.content-table tbody td:hover {
+    background-color: bisque;
+}
+
 .content-table caption {
     text-align: center;
     font-size: 1.5rem;
