@@ -16,8 +16,19 @@ body {
 }
 
 .headline {
-    font-weight: 400;
+    font-weight: 540;
     font-size: 30px;
+    text-align: center;
+}
+
+.p {
+    text-align: center;
+}
+
+.list {
+   list-style-position: inside;
+   display:flex;
+   text-align: center;
 }
 
 .header {
@@ -26,21 +37,57 @@ body {
 }
 
 .content-table {
+    background-color:whitesmoke;
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
     min-width: 400px;
+    border-radius: 20px 20px 20px 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .content-table thead tr {
     background-color: bisque;
     color: black;
-    text-align: left;
-    font-weight: bold;
+    text-align: center;
+    font-weight: bold; 
+}
+
+.content-table thead th:first-child {
+    border-radius: 20px 0 0 0 ;
+}
+
+.content-table thead th:last-child {
+    border-radius: 0 20px 0 0 ;
+}
+
+.content-table thead td {
+    padding: 12px 15px;
 }
 
 .content-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-    border-left: 1px solid #dddddd;
-    border-right: 1px solid #dddddd;
+    border:1px solid #dddddd;
+    height: 60px;
+    text-align: center;
+}
+
+.content-table tbody td {
+padding: 12px 15px;
+border-left: 1px solid #dddddd;
+}
+
+.content-table caption {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 540;
+    text-transform: uppercase;
+    margin: 25px 0;
+}
+
+.clock {
+    position:fixed;
+    right: 30px;
+    bottom: 30px;
+    margin-top: 30px;
 }
