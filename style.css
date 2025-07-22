@@ -27,11 +27,6 @@ body {
     font-size: 20px;
 }
 
-.header {
-    background-color: bisque;
-    height: 60px;
-}
-
 .content-table {
     color:black;
     background-color:whitesmoke;
@@ -131,5 +126,5 @@ cursor: pointer;
 
 .tablecap {
     color: white;
-    box-shadow: 1px 1px 10px whitesmoke;
+    box-shadow: 0 0 7px whitesmoke;
 }
