@@ -45,7 +45,7 @@ body {
 }
 
 .content-table thead tr {
-    background-color:darkblue;
+    background-color:#0B486B;
     color:white;
     text-align: center;
     font-weight: bold; 
@@ -75,7 +75,7 @@ border-left: 1px solid #dddddd;
 }
 
 .content-table tbody td:hover {
-    background-color:rgb(248, 147, 110);
+    background-color:rgb(247, 144, 107);
 }
 
 .content-table caption {
