@@ -39,9 +39,9 @@ body {
     margin: 25px 0;
     font-size: 0.9em;
     min-width: 400px;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 25px 25px 25px 25px;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 5px 5px 50px whitesmoke
 }
 
 .content-table thead tr {
@@ -52,11 +52,11 @@ body {
 }
 
 .content-table thead th:first-child {
-    border-radius: 20px 0 0 0 ;
+    border-radius: 25px 0 0 0 ;
 }
 
 .content-table thead th:last-child {
-    border-radius: 0 20px 0 0 ;
+    border-radius: 0 25px 0 0 ;
 }
 
 .content-table thead td {
@@ -72,10 +72,17 @@ body {
 .content-table tbody td {
 padding: 12px 15px;
 border-left: 1px solid #dddddd;
+cursor: pointer;
+}
+
+.heute {
+    background:rgb(255, 68, 0);
+    color:white
 }
 
 .content-table tbody td:hover {
     background-color:rgb(247, 144, 107);
+    color: white;
 }
 
 .content-table caption {
@@ -124,4 +131,5 @@ border-left: 1px solid #dddddd;
 
 .tablecap {
     color: white;
+    box-shadow: 1px 1px 10px whitesmoke;
 }
