@@ -129,3 +129,9 @@ body {
     color: white;
     box-shadow: 0 0 7px whitesmoke;
 }
+
+.transbox {
+    margin: 30px;
+    background-color: grey;
+    opacity: 0.5;
+}
