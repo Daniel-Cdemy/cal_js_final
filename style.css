@@ -13,16 +13,18 @@ body {
 body {
     font-family:Cambria, Cochin, Georgia, Times,
     'Times New Roman', serif;
+    color: white;
 }
 
 .headline {
     font-weight: 540;
-    font-size: 30px;
+    font-size: 40px;
     text-align: center;
 }
 
 .p {
     text-align: center;
+    font-size: 20px;
 }
 
 .header {
@@ -31,6 +33,7 @@ body {
 }
 
 .content-table {
+    color:black;
     background-color:whitesmoke;
     border-collapse: collapse;
     margin: 25px 0;
@@ -42,8 +45,8 @@ body {
 }
 
 .content-table thead tr {
-    background-color: bisque;
-    color: black;
+    background-color: coral;
+    color:white;
     text-align: center;
     font-weight: bold; 
 }
@@ -97,6 +100,7 @@ border-left: 1px solid #dddddd;
 }
 
 .listc {
+    font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,7 +118,10 @@ border-left: 1px solid #dddddd;
     z-index: -1;
     right: 0;
     bottom: 0;
-    transform: translate(-50% -50%);
     min-width: 100%;
     min-height: 100%;
+}
+
+.tablecap {
+    color: white;
 }
