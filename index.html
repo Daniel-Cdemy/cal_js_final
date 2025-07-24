@@ -5,68 +5,107 @@
         <meta http-equiv="X-UA-Compatible" content="IE-Edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Kalender</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Kalenderblatt vom 15.07.2025</h1>
-        <p> Der 15. Juli 2025 ist ein Montag und zwar der zweite Montag im Monat Juli des Jahres 2025.
+        <div class="grid-container">
+        <video class="video" autoplay muted loop>
+            <source src="background.mp4" type="video/mp4">
+        </video>
+        <div class="item-clock">
+        <iframe class="clock" 
+            src="http://free.timeanddate.com/clock/i9zgjgdx/n981/szw210/szh210/hoc000/hbw1/cf100/hgr0/fan2/fas16/fac111/fnu2/mqcfff/mhcfff/mmcfff/hsc444" 
+            frameborder="0" 
+            width="210" 
+            height="210">
+        </iframe>
+        </div>
+        <div class="item-weather">
+        <iframe class="weather" 
+            src="https://www.meteoblue.com/de/wetter/widget/daily/kassel_deutschland_2892518?geoloc=fixed&days=7&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&precipunit=MILLIMETER&coloured=monochrome&pictoicon=1&maxtemperature=1&mintemperature=1&windspeed=0&windgust=0&winddirection=0&uv=0&humidity=0&precipitation=0&precipitationprobability=1&spot=0&pressure=0&layout=dark""
+            frameborder="0"
+            width="300" 
+            height="300">
+        </iframe>
+        </div>
+        <div class="item-headline">
+        <h1 class="headline"> Kalenderblatt vom 15.07.2025</h1>
+        <div class="transbox">
+        <p class="p"> Der 15. Juli 2025 ist ein Montag und zwar der zweite Montag im Monat Juli des Jahres 2025.
             Es handelt sich um den 195. Tag des Jahres, was bedeutet, dass es noch 170 Tage bis zum Jahresende sind. 
             Der Juli hat ingesamt 31 Tage. Heute ist kein gesetzlicher Feiertag in Deutschland. </p>
-        <table>
-            <tr>
-                <th>Mo</th>
-                <th>Di</th>
-                <th>Mi</th>
-                <th>Do</th>
-                <th>Fr</th>
-                <th>Sa</th>
-                <th>So</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-                <td>11</td>
-                <td>12</td>
-                <td>13</td>
-             <tr>
-                <td>14</td>
-                <td>15</td>
-                <td>16</td>
-                <td>17</td>
-                <td>18</td>
-                <td>19</td>
-                <td>20</td>
-            </tr>
-            <tr>
-                <td>21</td>
-                <td>22</td>
-                <td>23</td>
-                <td>24</td>
-                <td>25</td>
-                <td>26</td>
-                <td>27</td>
-            </tr>
-            <tr>
-                <td>28</td>
-                <td>29</td>
-                <td>30</td>
-                <td>31</td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+        </div>
+        </div>
+        <div class="item-cal">
+        <div class="tablec">
+        <table class="content-table">
+        <caption>
+            Juli 2025
+        </caption>
+            <thead>
+                <tr>
+                    <th>Mo</th>
+                    <th>Di</th>
+                    <th>Mi</th>
+                    <th>Do</th>
+                    <th>Fr</th>
+                    <th>Sa</th>
+                    <th>So</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td class="samstag">5</td>
+                    <td class="sonntag">6</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td class="samstag">12</td>
+                    <td class="sonntag">13</td>
+                    </tr>
+                <tr>
+                    <td>14</td>
+                    <td class="heute">15</td>
+                    <td>16</td>
+                    <td>17</td>
+                    <td>18</td>
+                    <td class="samstag">19</td>
+                    <td class="sonntag">20</td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td>22</td>
+                    <td>23</td>
+                    <td>24</td>
+                    <td>25</td>
+                    <td class="samstag">26</td>
+                    <td class="sonntag">27</td>
+                </tr>
+                <tr>
+                    <td>28</td>
+                    <td>29</td>
+                    <td>30</td>
+                    <td>31</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
         </table>
-        <h2>Historische Ereignisse am 14. Juli</h2>
+        </div>
+        </div>
+        <div class="item-list">
+        <h2 class="headline">Historische Ereignisse am 15. Juli</h2>
+        <div class="listc transbox">
         <ul>
              <li>1789: Sturm auf die Bastille in Paris, Beginn der Französischen Revolution.</li>
              <li>1916: Eröffnung des Stadtbades in Leipzig.</li>
@@ -74,5 +113,8 @@
              <li>2002: Erster internationaler Elbe-Badetag.</li>
              <li>2025: Die erste Übung bei Cdemy mit den neuen Teilnehmern.</li>
         </ul>
+        </div>
+        </div>
+        </div>
     </body>
 </html>
