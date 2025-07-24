@@ -37,7 +37,7 @@ body {
     min-width: 400px;
     border-radius: 25px 25px 25px 25px;
     overflow: hidden;
-    box-shadow: 5px 5px 50px whitesmoke
+    box-shadow: 5px 5px 50px whitesmoke;
 }
 
 .content-table thead tr {
@@ -48,11 +48,11 @@ body {
 }
 
 .content-table thead th:first-child {
-    border-radius: 25px 0 0 0 ;
+    border-radius: 25px 0 0 0;
 }
 
 .content-table thead th:last-child {
-    border-radius: 0 25px 0 0 ;
+    border-radius: 0 25px 0 0;
 }
 
 .content-table tbody tr {
