@@ -67,7 +67,7 @@ body {
     cursor: pointer;
 }
 
-.heute {
+#today {
     background:rgb(255, 68, 0);
     color:white
 }
