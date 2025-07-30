@@ -88,5 +88,11 @@ document.getElementById("wievielte").textContent = wievielte;
 
 console.log(dateToday - dateStart);
 
-/* Ich will jetzt noch:
-ist heute ein feiertag? */
+/* 
+Ich will jetzt noch:
+-ist heute ein feiertag?
+-Tage des Vor- und Nachmonats im Kalender anzeigen
+-Wenn alle funktionen laufen alles nochmal komprimieren und optimieren
+(bsp. getElementbyID ersetzen - eher klassen zuordnen o.Ä,
+functions verkürzen oder vereinfachen)
+ */
