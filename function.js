@@ -67,6 +67,7 @@ const dateStart = new Date("2025-01.01");
     document.getElementById("fullMonth5").textContent = monthName
 
     let year = dateToday.getFullYear();
+        let isLeapYear = ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0)
 
     document.getElementById("yearDig").textContent = year
     document.getElementById("yearDig1").textContent = year
@@ -101,6 +102,9 @@ const dateStart = new Date("2025-01.01");
     ich brauche jetzt noch das schaltjahr. wie finde ich heraus ob es ein schaltjahr ist?
     Im internet finde ich, dass man durch 4 teilt. vielleicht finde ich ein schaltjahr und schreibe eine
     funktion in der einfach alle 4 jahre gesagt wird, dasss ein schaltjahr ist.
+
+    2024 ist ein schaltjahr, nehme ich das als orientierungspunkt? und wenn wie?
+
     wie viele tage sind es noch bis zum jahresende?
     wie viele tage hat jeder monat? 
     ist ein feiertag? */
