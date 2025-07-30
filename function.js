@@ -78,9 +78,9 @@ const dateStart = new Date (year, 0, 1);
     document.getElementById("diffStart").textContent = finalDiffInDays;
 
     let remainingDays = daysInYear - diffInDays;
+
     document.getElementById("remainingDays").textContent = remainingDays;
-
-
+    
     document.getElementById("yearDig").textContent = year
     document.getElementById("yearDig1").textContent = year
     document.getElementById("yearDig2").textContent = year
@@ -103,6 +103,11 @@ const dateStart = new Date (year, 0, 1);
                 return "fünfte";
         }
 
+const lastDayInMonth = new Date (year, month + 1, 0).getDate();
+
+    document.getElementById("lastDayInMonth").textContent = lastDayInMonth
+
+
     document.getElementById("day").textContent = datePeriod
     document.getElementById("day1").textContent = datePeriod
     document.getElementById("day2").textContent = datePeriod
@@ -111,6 +116,5 @@ const dateStart = new Date (year, 0, 1);
     console.log (dateToday - dateStart)
 
     /* Ich will jetzt noch:
-    wie viele tage hat jeder monat? 
-    ist ein feiertag? */
+    ist heute ein feiertag? */
 
