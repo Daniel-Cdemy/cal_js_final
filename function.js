@@ -1,7 +1,14 @@
 const dateToday = new Date();
+const dateStart = new Date("2025-01.01");
+    let diffInMS = dateToday - dateStart;
+        let diffInDays = Math.floor(diffInMS / 86400000) + 1;
+            let finalDiffInDays = diffInDays + "."
+
+    document.getElementById("diffStart").textContent = finalDiffInDays;
+
     let weekday = dateToday.getDay();
         let dayName = getDayName(weekday);
-           
+
         function getDayName() {
             if (weekday === 0) 
                 return "Sonntag";
@@ -88,9 +95,13 @@ const dateToday = new Date();
     document.getElementById("day2").textContent = datePeriod
     document.getElementById("wievielte").textContent = wievielte
 
+    console.log (dateToday - dateStart)
+
     /* Ich will jetzt noch: 
-    der wievielte Tag im jahr ist es?
+    ich brauche jetzt noch das schaltjahr. wie finde ich heraus ob es ein schaltjahr ist?
+    Im internet finde ich, dass man durch 4 teilt. vielleicht finde ich ein schaltjahr und schreibe eine
+    funktion in der einfach alle 4 jahre gesagt wird, dasss ein schaltjahr ist.
     wie viele tage sind es noch bis zum jahresende?
-    wie viele tage hat jeder monat? (was ist mit schaltjahr?)
+    wie viele tage hat jeder monat? 
     ist ein feiertag? */
 
