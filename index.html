@@ -1,140 +1,142 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE-Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Kalender</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="grid-container">
-            <div class="item-clock">
-                <div class="myclock">
-                    <div class="hour"></div>
-                    <div class="minute"></div>
-                    <div class="second"></div>
-                    <span></span>
-                </div>
-            </div>
-            <video class="video" autoplay muted loop>
-                <source src="background.mp4" type="video/mp4">
-            </video>
-            <div class="item-headline">
-                <h1 class="headline"> Kalenderblatt vom 
-                    <span id="day1">Tag</span> 
-                    <span id="fullMonth3">Monat</span>
-                    <span id="yearDig">Jahr</span>
-                </h1>
-                <div class="transbox">
-                    <p class="p"> 
-                        Der 
-                        <span id="day">Tag</span> 
-                        <span id="fullMonth">Monat</span> 
-                        <span id="yearDig1">Jahr</span> ist ein 
-                        <span id="weekDay">Wochentag</span> und zwar der
-                        <span id="wievielte">Tag in Woche</span> 
-                        <span id="weekDay1">Wochentag</span> im Monat 
-                        <span id="fullMonth1">Monat</span> des Jahres 
-                        <span id="yearDig2">Jahr</span>. Es 
-                        handelt sich um den 
-                        <span id="diffStart">Differenz</span>
-                        Tag des Jahres, was bedeutet, 
-                        dass es noch 
-                        <span id="remainingDays">verbleibende Tage</span> 
-                        Tage bis zum Jahresende sind. Der 
-                        <span id="fullMonth5">Monat</span> 
-                        hat ingesamt 
-                        <span id="lastDayInMonth">anzahl kalendertage</span> 
-                        Tage. Heute ist kein gesetzlicher Feiertag 
-                        in Deutschland. 
-                    </p>
-                </div>
-            </div>
-            <div class="item-cal">
-                <div class="tablec">
-                    <table class="content-table">
-                    <caption>
-                        <span id="fullMonth2">Monat</span> 
-                        <span id="yearDig3">Jahr</span>
-                    </caption>
-                        <thead>
-                            <tr>
-                                <th>Mo</th>
-                                <th>Di</th>
-                                <th>Mi</th>
-                                <th>Do</th>
-                                <th>Fr</th>
-                                <th>Sa</th>
-                                <th>So</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td class="samstag">5</td>
-                                <td class="sonntag">6</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
-                                <td class="samstag">12</td>
-                                <td class="sonntag">13</td>
-                                </tr>
-                            <tr>
-                                <td>14</td>
-                                <td id="today">15</td>
-                                <td>16</td>
-                                <td>17</td>
-                                <td>18</td>
-                                <td class="samstag">19</td>
-                                <td class="sonntag">20</td>
-                            </tr>
-                            <tr>
-                                <td>21</td>
-                                <td>22</td>
-                                <td>23</td>
-                                <td>24</td>
-                                <td>25</td>
-                                <td class="samstag">26</td>
-                                <td class="sonntag">27</td>
-                            </tr>
-                            <tr>
-                                <td>28</td>
-                                <td>29</td>
-                                <td>30</td>
-                                <td>31</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="item-list">
-            <h2 class="headline">Historische Ereignisse am 
-                <span id="day2">Tag</span> 
-                <span id="fullMonth4">Monat</span>
-            </h2>
-                <div class="listc transbox">
-                    <ul>
-                        <li>1789: Sturm auf die Bastille in Paris, Beginn der Französischen Revolution.</li>
-                        <li>1916: Eröffnung des Stadtbades in Leipzig.</li>
-                        <li>1933: Verbot politischer Parteien in Deutschland</li>
-                        <li>2002: Erster internationaler Elbe-Badetag.</li>
-                        <li>2025: Die erste Übung bei Cdemy mit den neuen Teilnehmern.</li>
-                    </ul>
-                </div>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalender</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="grid-container">
+      <div class="item-clock">
+        <div class="myclock">
+          <div class="hour"></div>
+          <div class="minute"></div>
+          <div class="second"></div>
+          <span></span>
         </div>
-        <script src="function.js"></script>
-    </body>
+      </div>
+      <video class="video" autoplay muted loop>
+        <source src="background.mp4" type="video/mp4" />
+      </video>
+      <div class="item-headline">
+        <h1 class="headline">
+          Kalenderblatt vom: </br>
+          <span id="day1">Tag</span>
+          <span id="fullMonth3">Monat</span>
+          <span id="yearDig">Jahr</span>
+        </h1>
+        <div class="transbox">
+          <p class="p">
+            Der
+            <span id="day">Tag</span>
+            <span id="fullMonth">Monat</span>
+            <span id="yearDig1">Jahr</span> ist ein
+            <span id="weekDay">Wochentag</span> und zwar der
+            <span id="wievielte">Tag in Woche</span>
+            <span id="weekDay1">Wochentag</span> im Monat
+            <span id="fullMonth1">Monat</span> des Jahres
+            <span id="yearDig2">Jahr</span>. Es handelt sich um den
+            <span id="diffStart">Differenz</span>
+            Tag des Jahres, was bedeutet, dass es noch
+            <span id="remainingDays">verbleibende Tage</span>
+            Tage bis zum Jahresende sind. Der
+            <span id="fullMonth5">Monat</span>
+            hat ingesamt
+            <span id="lastDayInMonth">anzahl kalendertage</span>
+            Tage. Heute ist kein gesetzlicher Feiertag in Deutschland.
+          </p>
+        </div>
+      </div>
+      <div class="item-cal">
+        <div class="tablec">
+          <table class="content-table">
+            <caption>
+              <span id="fullMonth2">Monat</span>
+              <span id="yearDig3">Jahr</span>
+            </caption>
+            <thead>
+              <tr>
+                <th>Mo</th>
+                <th>Di</th>
+                <th>Mi</th>
+                <th>Do</th>
+                <th>Fr</th>
+                <th>Sa</th>
+                <th>So</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td class="samstag">5</td>
+                <td class="sonntag">6</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td class="samstag">12</td>
+                <td class="sonntag">13</td>
+              </tr>
+              <tr>
+                <td>14</td>
+                <td id="today">15</td>
+                <td>16</td>
+                <td>17</td>
+                <td>18</td>
+                <td class="samstag">19</td>
+                <td class="sonntag">20</td>
+              </tr>
+              <tr>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+                <td>25</td>
+                <td class="samstag">26</td>
+                <td class="sonntag">27</td>
+              </tr>
+              <tr>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+                <td>31</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="item-list">
+        <h2 class="headline">
+          Historische Ereignisse am
+          <span id="day2">Tag</span>
+          <span id="fullMonth4">Monat</span>
+        </h2>
+        <div class="listc transbox">
+          <ul>
+            <li>
+              1789: Sturm auf die Bastille in Paris, Beginn der Französischen
+              Revolution.
+            </li>
+            <li>1916: Eröffnung des Stadtbades in Leipzig.</li>
+            <li>1933: Verbot politischer Parteien in Deutschland</li>
+            <li>2002: Erster internationaler Elbe-Badetag.</li>
+            <li>2025: Die erste Übung bei Cdemy mit den neuen Teilnehmern.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script src="function.js"></script>
+  </body>
 </html>
