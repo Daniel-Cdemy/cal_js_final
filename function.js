@@ -1,11 +1,4 @@
 const dateToday = new Date();
-const dateStart = new Date("2025-01.01");
-    let diffInMS = dateToday - dateStart;
-        let diffInDays = Math.floor(diffInMS / 86400000) + 1;
-            let finalDiffInDays = diffInDays + ".";
-
-    document.getElementById("diffStart").textContent = finalDiffInDays;
-
     let weekday = dateToday.getDay();
         let dayName = getDayName(weekday);
 
@@ -77,6 +70,13 @@ const dateStart = new Date("2025-01.01");
                     return 365;
             }
 
+const dateStart = new Date (year, 0, 1);
+    let diffInMS = dateToday - dateStart;
+        let diffInDays = Math.floor(diffInMS / 86400000) + 1;
+            let finalDiffInDays = diffInDays + ".";
+
+    document.getElementById("diffStart").textContent = finalDiffInDays;
+
     let remainingDays = daysInYear - diffInDays;
     document.getElementById("remainingDays").textContent = remainingDays;
 
@@ -111,7 +111,6 @@ const dateStart = new Date("2025-01.01");
     console.log (dateToday - dateStart)
 
     /* Ich will jetzt noch:
-    wie viele tage sind es noch bis zum jahresende?
     wie viele tage hat jeder monat? 
     ist ein feiertag? */
 
