@@ -67,17 +67,30 @@ const dateToday = new Date();
     document.getElementById("yearDig3").textContent = year
 
     let day = dateToday.getDate();
+        let wievielte = getWievielte (day);
     datePeriod = day + "."
+
+        function getWievielte() {
+            if (day < 8) 
+                return "erste";
+            if (day < 15)
+                return "zweite";
+            if (day < 22)
+                return "dritte";
+            if (day < 29)
+                return "vierte";
+            if (day > 29)
+                return "fünfte";
+        }
 
     document.getElementById("day").textContent = datePeriod
     document.getElementById("day1").textContent = datePeriod
     document.getElementById("day2").textContent = datePeriod
+    document.getElementById("wievielte").textContent = wievielte
 
     /* Ich will jetzt noch: 
-    der wie vielte mittwoch im monat handelt es sich?
     der wievielte Tag im jahr ist es?
     wie viele tage sind es noch bis zum jahresende?
     wie viele tage hat jeder monat? (was ist mit schaltjahr?)
     ist ein feiertag? */
 
-    
