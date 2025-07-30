@@ -169,7 +169,7 @@ body {
     box-shadow: 0 0 7px whitesmoke;
 }
 
-span {
+.myclock span {
     display: flex;
     position: relative;
     top: 50%;

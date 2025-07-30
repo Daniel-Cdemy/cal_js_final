@@ -1,9 +1,7 @@
 const dateToday = new Date();
     let day = dateToday.getDay();
-        let dayName = getDayName();
-            document.getElementById("weekDay").textContent = dayName;
-            document.getElementById("weekDay1").textContent = dayName;
-
+        let dayName = getDayName(day);
+           
         function getDayName() {
             if (day === 0) 
                 return "Sonntag";
@@ -20,3 +18,6 @@ const dateToday = new Date();
             else if (day === 6) 
                 return "Samstag";
             }
+
+            document.getElementById("weekDay").textContent = dayName;
+            document.getElementById("weekDay1").textContent = dayName;
