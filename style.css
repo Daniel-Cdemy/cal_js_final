@@ -34,6 +34,7 @@ body {
   border: hidden;
   border-radius: 33%;
   box-shadow: 0 0 10px whitesmoke;
+  cursor: pointer;
 }
 
 .content-table {
