@@ -86,7 +86,86 @@ document.getElementById("day1").textContent = datePeriod;
 document.getElementById("day2").textContent = datePeriod;
 document.getElementById("wievielte").textContent = wievielte;
 
-console.log(dateToday - dateStart);
+const newYearsDay = new Date(year, 0, 1);
+const laborDay = new Date(year, 4, 1);
+const germanUnityDay = new Date(year, 9, 3);
+
+function getEasterSunday(year) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const n = (h + l - 7 * m + 114) % 31;
+  const day = n + 1;
+  const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
+  return new Date(year, month, day);
+}
+
+function getAscensionDay(year) {
+  const easterSunday = getEasterSunday(year);
+  return new Date(easterSunday.getTime() + 39 * 24 * 60 * 60 * 1000);
+}
+
+function getPentecostSunday(year) {
+  const easterSunday = getEasterSunday(year);
+  return new Date(easterSunday.getTime() + 49 * 24 * 60 * 60 * 1000);
+}
+function isHoliday() {
+  if (
+    dateToday.getDate() === newYearsDay.getDate() &&
+    dateToday.getMonth() === newYearsDay.getMonth() &&
+    dateToday.getFullYear() === newYearsDay.getFullYear()
+  ) {
+    return "ist ein gesetzlicher Feiertag";
+  }
+  if (
+    dateToday.getDate() === laborDay.getDate() &&
+    dateToday.getMonth() === laborDay.getMonth() &&
+    dateToday.getFullYear() === laborDay.getFullYear()
+  ) {
+    return "ist ein gesetzlicher Feiertag";
+  }
+  if (
+    dateToday.getDate() === germanUnityDay.getDate() &&
+    dateToday.getMonth() === germanUnityDay.getMonth() &&
+    dateToday.getFullYear() === germanUnityDay.getFullYear()
+  ) {
+    return "ist ein gesetzlicher Feiertag";
+  }
+  if (
+    dateToday.getDate() === getEasterSunday(year).getDate() &&
+    dateToday.getMonth() === getEasterSunday(year).getMonth() &&
+    dateToday.getFullYear() === getEasterSunday(year).getFullYear()
+  ) {
+    return "ist ein gesetzlicher Feiertag";
+  }
+  if (
+    dateToday.getDate() === getAscensionDay(year).getDate() &&
+    dateToday.getMonth() === getAscensionDay(year).getMonth() &&
+    dateToday.getFullYear() === getAscensionDay(year).getFullYear()
+  ) {
+    return "ist ein gesetzlicher Feiertag";
+  }
+  if (
+    dateToday.getDate() === getPentecostSunday(year).getDate() &&
+    dateToday.getMonth() === getPentecostSunday(year).getMonth() &&
+    dateToday.getFullYear() === getPentecostSunday(year).getFullYear()
+  ) {
+    return "ist ein gesetzlicher Feiertag";
+  } else {
+    return "ist kein gesetzlicher Feiertag";
+  }
+}
+
+document.getElementById("holiday").textContent = isHoliday();
 
 /* 
 Ich will jetzt noch:
