@@ -169,7 +169,6 @@ document.getElementById("holiday").textContent = isHoliday();
 
 /* 
 Ich will jetzt noch:
--ist heute ein feiertag?
 -Tage des Vor- und Nachmonats im Kalender anzeigen
 -Wenn alle funktionen laufen alles nochmal komprimieren und optimieren
 (bsp. getElementbyID ersetzen - eher klassen zuordnen o.Ä,
