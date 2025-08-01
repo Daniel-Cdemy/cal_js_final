@@ -2,6 +2,7 @@ const dateToday = new Date();
 
 let weekday = dateToday.getDay();
 let dayName = getDayName(weekday);
+// Ausgabe der Wochentage als Name:
 function getDayName() {
   if (weekday === 0) return "Sonntag";
   else if (weekday === 1) return "Montag";
@@ -16,6 +17,7 @@ document.getElementById("weekDay1").textContent = dayName;
 
 let month = dateToday.getMonth();
 let monthName = getMonthName(month);
+// Ausgabe der Monate als Name:
 function getMonthName() {
   if (month === 0) return "Januar";
   if (month === 1) return "Februar";
@@ -38,8 +40,11 @@ document.getElementById("fullMonth4").textContent = monthName;
 document.getElementById("fullMonth5").textContent = monthName;
 
 let year = dateToday.getFullYear();
+// Um die vergangenen und verbleibenden Tage richtig zu berechnen,
+// nutze ich eine Formel für die Schaltjahre:
 let isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 let daysInYear = getDaysInYear(year);
+// Ausgabe ob Schaltjahr:
 function getDaysInYear() {
   if (isLeapYear === true) return 366;
   if (isLeapYear === false) return 365;
@@ -49,17 +54,24 @@ document.getElementById("yearDig1").textContent = year;
 document.getElementById("yearDig2").textContent = year;
 document.getElementById("yearDig3").textContent = year;
 
+// Um herauszufinden wie viele Tage vergangen sind,
+// vergleiche ich das aktuelle Datum mit dem 01.01 diesen Jahres
+// und ermittle die Differenz:
 const dateStart = new Date(year, 0, 1);
 let diffInMS = dateToday - dateStart;
 let diffInDays = Math.floor(diffInMS / 86400000) + 1;
 let finalDiffInDays = diffInDays + ".";
 document.getElementById("diffStart").textContent = finalDiffInDays;
 
+// Um herauszufinden wie viele Tage es noch bis zum Jahresende sind,
+// ziehe ich die aktuellen Tage von den gesamten Tagen im Jahr ab:
 let remainingDays = daysInYear - diffInDays;
 document.getElementById("remainingDays").textContent = remainingDays;
 
 let day = dateToday.getDate();
 let wievielte = getWievielte(day);
+// Um richtig auszugeben, um die wievielte Woche es sich handelt,
+// nutze ich folgende Funktion:
 function getWievielte() {
   if (day < 8) return "erste";
   if (day < 15) return "zweite";
@@ -67,7 +79,12 @@ function getWievielte() {
   if (day < 29) return "vierte";
   if ((day) => 29) return "fünfte";
 }
+document.getElementById("wievielte").textContent = wievielte;
+
+// Damit das Datum korrekt ausgegeben wird, füge ich ein "." nach jedem Tag hinzu:
 datePeriod = finalDatePeriod() + ".";
+// Damit einzelne Zahlen sich nicht von den doppelten unterscheiden,
+// füge ich eine "0" vor die einzelnen Zahlen hinzu:
 function finalDatePeriod() {
   if (day < 10) return "0" + day;
   else {
@@ -77,14 +94,17 @@ function finalDatePeriod() {
 document.getElementById("day").textContent = datePeriod;
 document.getElementById("day1").textContent = datePeriod;
 document.getElementById("day2").textContent = datePeriod;
-document.getElementById("wievielte").textContent = wievielte;
 
+// Ermittlung des letzten Tages im aktuellen Monat:
 const lastDayInMonth = new Date(year, month + 1, 0).getDate();
 document.getElementById("lastDayInMonth").textContent = lastDayInMonth;
 
+// Feste Feiertage:
 const newYearsDay = new Date(year, 0, 1);
 const laborDay = new Date(year, 4, 1);
 const germanUnityDay = new Date(year, 9, 3);
+
+// Berechnung von Ostersonntag nach Gauß:
 function getEasterSunday(year) {
   const a = year % 19;
   const b = Math.floor(year / 100);
@@ -103,17 +123,17 @@ function getEasterSunday(year) {
   const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
   return new Date(year, month, day);
 }
-
+// Berechnung Christi Himmelfahrt anhand von Ostersonntag:
 function getAscensionDay(year) {
   const easterSunday = getEasterSunday(year);
   return new Date(easterSunday.getTime() + 39 * 24 * 60 * 60 * 1000);
 }
-
+// Berechnung von Pfingsten anhand von Ostersonntag:
 function getPentecostSunday(year) {
   const easterSunday = getEasterSunday(year);
   return new Date(easterSunday.getTime() + 49 * 24 * 60 * 60 * 1000);
 }
-
+// Überprüfen ob heute ein Feiertag ist:
 function isHoliday() {
   if (
     dateToday.getDate() === newYearsDay.getDate() &&
