@@ -1,59 +1,7 @@
 const dateToday = new Date();
+
 let weekday = dateToday.getDay();
 let dayName = getDayName(weekday);
-
-document.getElementById("weekDay").textContent = dayName;
-document.getElementById("weekDay1").textContent = dayName;
-
-let month = dateToday.getMonth();
-let monthName = getMonthName(month);
-
-document.getElementById("fullMonth").textContent = monthName;
-document.getElementById("fullMonth1").textContent = monthName;
-document.getElementById("fullMonth2").textContent = monthName;
-document.getElementById("fullMonth3").textContent = monthName;
-document.getElementById("fullMonth4").textContent = monthName;
-document.getElementById("fullMonth5").textContent = monthName;
-
-let year = dateToday.getFullYear();
-let isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-let daysInYear = getDaysInYear(year);
-
-const dateStart = new Date(year, 0, 1);
-let diffInMS = dateToday - dateStart;
-let diffInDays = Math.floor(diffInMS / 86400000) + 1;
-let finalDiffInDays = diffInDays + ".";
-
-document.getElementById("diffStart").textContent = finalDiffInDays;
-
-let remainingDays = daysInYear - diffInDays;
-
-document.getElementById("remainingDays").textContent = remainingDays;
-
-document.getElementById("yearDig").textContent = year;
-document.getElementById("yearDig1").textContent = year;
-document.getElementById("yearDig2").textContent = year;
-document.getElementById("yearDig3").textContent = year;
-
-let day = dateToday.getDate();
-let wievielte = getWievielte(day);
-datePeriod = finalDatePeriod() + ".";
-
-const lastDayInMonth = new Date(year, month + 1, 0).getDate();
-
-document.getElementById("lastDayInMonth").textContent = lastDayInMonth;
-
-document.getElementById("day").textContent = datePeriod;
-document.getElementById("day1").textContent = datePeriod;
-document.getElementById("day2").textContent = datePeriod;
-document.getElementById("wievielte").textContent = wievielte;
-
-const newYearsDay = new Date(year, 0, 1);
-const laborDay = new Date(year, 4, 1);
-const germanUnityDay = new Date(year, 9, 3);
-
-document.getElementById("holiday").textContent = isHoliday();
-
 function getDayName() {
   if (weekday === 0) return "Sonntag";
   else if (weekday === 1) return "Montag";
@@ -63,7 +11,11 @@ function getDayName() {
   else if (weekday === 5) return "Freitag";
   else if (weekday === 6) return "Samstag";
 }
+document.getElementById("weekDay").textContent = dayName;
+document.getElementById("weekDay1").textContent = dayName;
 
+let month = dateToday.getMonth();
+let monthName = getMonthName(month);
 function getMonthName() {
   if (month === 0) return "Januar";
   if (month === 1) return "Februar";
@@ -78,27 +30,61 @@ function getMonthName() {
   if (month === 10) return "November";
   if (month === 11) return "Dezember";
 }
+document.getElementById("fullMonth").textContent = monthName;
+document.getElementById("fullMonth1").textContent = monthName;
+document.getElementById("fullMonth2").textContent = monthName;
+document.getElementById("fullMonth3").textContent = monthName;
+document.getElementById("fullMonth4").textContent = monthName;
+document.getElementById("fullMonth5").textContent = monthName;
 
+let year = dateToday.getFullYear();
+let isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+let daysInYear = getDaysInYear(year);
 function getDaysInYear() {
   if (isLeapYear === true) return 366;
   if (isLeapYear === false) return 365;
 }
+document.getElementById("yearDig").textContent = year;
+document.getElementById("yearDig1").textContent = year;
+document.getElementById("yearDig2").textContent = year;
+document.getElementById("yearDig3").textContent = year;
 
+const dateStart = new Date(year, 0, 1);
+let diffInMS = dateToday - dateStart;
+let diffInDays = Math.floor(diffInMS / 86400000) + 1;
+let finalDiffInDays = diffInDays + ".";
+document.getElementById("diffStart").textContent = finalDiffInDays;
+
+let remainingDays = daysInYear - diffInDays;
+document.getElementById("remainingDays").textContent = remainingDays;
+
+let day = dateToday.getDate();
+let wievielte = getWievielte(day);
 function getWievielte() {
   if (day < 8) return "erste";
   if (day < 15) return "zweite";
   if (day < 22) return "dritte";
   if (day < 29) return "vierte";
-  if (day > 29) return "fünfte";
+  if ((day) => 29) return "fünfte";
 }
-
+datePeriod = finalDatePeriod() + ".";
 function finalDatePeriod() {
   if (day < 10) return "0" + day;
   else {
     return day;
   }
 }
+document.getElementById("day").textContent = datePeriod;
+document.getElementById("day1").textContent = datePeriod;
+document.getElementById("day2").textContent = datePeriod;
+document.getElementById("wievielte").textContent = wievielte;
 
+const lastDayInMonth = new Date(year, month + 1, 0).getDate();
+document.getElementById("lastDayInMonth").textContent = lastDayInMonth;
+
+const newYearsDay = new Date(year, 0, 1);
+const laborDay = new Date(year, 4, 1);
+const germanUnityDay = new Date(year, 9, 3);
 function getEasterSunday(year) {
   const a = year % 19;
   const b = Math.floor(year / 100);
@@ -127,6 +113,7 @@ function getPentecostSunday(year) {
   const easterSunday = getEasterSunday(year);
   return new Date(easterSunday.getTime() + 49 * 24 * 60 * 60 * 1000);
 }
+
 function isHoliday() {
   if (
     dateToday.getDate() === newYearsDay.getDate() &&
@@ -173,10 +160,4 @@ function isHoliday() {
     return "ist kein gesetzlicher Feiertag";
   }
 }
-
-/* 
-Ich will jetzt noch:
--Wenn alle funktionen laufen alles nochmal komprimieren und optimieren
-(bsp. getElementbyID ersetzen - eher klassen zuordnen o.Ä,
-functions verkürzen oder vereinfachen)
- */
+document.getElementById("holiday").textContent = isHoliday();
