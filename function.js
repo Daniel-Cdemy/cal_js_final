@@ -37,7 +37,7 @@ document.getElementById("yearDig3").textContent = year;
 
 let day = dateToday.getDate();
 let wievielte = getWievielte(day);
-datePeriod = day + ".";
+datePeriod = finalDatePeriod() + ".";
 
 const lastDayInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -90,6 +90,13 @@ function getWievielte() {
   if (day < 22) return "dritte";
   if (day < 29) return "vierte";
   if (day > 29) return "fünfte";
+}
+
+function finalDatePeriod() {
+  if (day < 10) return "0" + day;
+  else {
+    return day;
+  }
 }
 
 function getEasterSunday(year) {
