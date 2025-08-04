@@ -103,6 +103,8 @@ document.getElementById("lastDayInMonth").textContent = lastDayInMonth;
 const newYearsDay = new Date(year, 0, 1);
 const laborDay = new Date(year, 4, 1);
 const germanUnityDay = new Date(year, 9, 3);
+const fistChristmasDay = new Date(year, 11, 25);
+const secondChristmasDay = new Date(year, 11, 26);
 
 // Berechnung von Ostersonntag nach Gauß:
 function getEasterSunday(year) {
@@ -123,6 +125,13 @@ function getEasterSunday(year) {
   const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
   return new Date(year, month, day);
 }
+const easterSunday = getEasterSunday(year);
+// Ostermontag:
+const easterMonday = new Date(easterSunday);
+easterMonday.setDate(easterMonday.getDate() + 1);
+// Karfreitag:
+const goodFriday = new Date(easterSunday);
+goodFriday.setDate(goodFriday.getDate() - 2);
 // Berechnung Christi Himmelfahrt anhand von Ostersonntag:
 function getAscensionDay(year) {
   const easterSunday = getEasterSunday(year);
@@ -139,6 +148,20 @@ function isHoliday() {
     dateToday.getDate() === newYearsDay.getDate() &&
     dateToday.getMonth() === newYearsDay.getMonth() &&
     dateToday.getFullYear() === newYearsDay.getFullYear()
+  ) {
+    return "ist ein gesetzlicher Feiertag";
+  }
+  if (
+    dateToday.getDate() === goodFriday.getDate() &&
+    dateToday.getMonth() === goodFriday.getMonth() &&
+    dateToday.getFullYear() === goodFriday.getFullYear()
+  ) {
+    return "ist ein gesetzlicher Feiertag";
+  }
+  if (
+    dateToday.getDate() === easterMonday.getDate() &&
+    dateToday.getMonth() === easterMonday.getMonth() &&
+    dateToday.getFullYear() === easterMonday.getFullYear()
   ) {
     return "ist ein gesetzlicher Feiertag";
   }
