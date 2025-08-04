@@ -1,4 +1,4 @@
-const dateToday = new Date("2025-12-25");
+const dateToday = new Date();
 
 let weekday = dateToday.getDay();
 let dayName = getDayName(weekday);
@@ -77,7 +77,7 @@ function getWievielte() {
   if (day < 15) return "zweite";
   if (day < 22) return "dritte";
   if (day < 29) return "vierte";
-  if ((day) => 29) return "fünfte";
+  else return "fünfte";
 }
 document.getElementById("wievielte").textContent = wievielte;
 
