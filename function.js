@@ -86,9 +86,9 @@ function finalDatePeriod() {
   if (day < 10) return "0" + day;
   else return day;
 }
-document.getElementById("day").textContent = datePeriod;
-document.getElementById("day1").textContent = datePeriod;
-document.getElementById("day2").textContent = datePeriod;
+document.querySelectorAll('[data-role="day"]').forEach((el) => {
+  el.textContent = datePeriod;
+});
 
 // Ermittlung des letzten Tages im aktuellen Monat:
 const lastDayInMonth = new Date(year, month + 1, 0).getDate();
@@ -234,3 +234,7 @@ function isHoliday() {
   }
 }
 document.getElementById("holiday").textContent = isHoliday();
+
+function getKalenderblatt(year, month) {
+  const kalenderblatt = document.getElementById("tBody");
+}
