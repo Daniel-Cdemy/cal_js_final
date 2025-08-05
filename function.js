@@ -1,37 +1,34 @@
 const dateToday = new Date();
-
-let weekday = dateToday.getDay();
-let dayName = getDayName(weekday);
-// Ausgabe der Wochentage als Name:
-function getDayName() {
-  if (weekday === 0) return "Sonntag";
-  else if (weekday === 1) return "Montag";
-  else if (weekday === 2) return "Dienstag";
-  else if (weekday === 3) return "Mittwoch";
-  else if (weekday === 4) return "Donnerstag";
-  else if (weekday === 5) return "Freitag";
-  else if (weekday === 6) return "Samstag";
-}
+const weekday = dateToday.getDay();
+const dayNames = [
+  "Sonntag",
+  "Montag",
+  "Dienstag",
+  "Mittwoch",
+  "Donnerstag",
+  "Freitag",
+  "Samstag",
+];
+const dayName = dayNames[weekday];
 document.getElementById("weekDay").textContent = dayName;
 document.getElementById("weekDay1").textContent = dayName;
 
-let month = dateToday.getMonth();
-let monthName = getMonthName(month);
-// Ausgabe der Monate als Name:
-function getMonthName() {
-  if (month === 0) return "Januar";
-  if (month === 1) return "Februar";
-  if (month === 2) return "März";
-  if (month === 3) return "April";
-  if (month === 4) return "Mai";
-  if (month === 5) return "Juni";
-  if (month === 6) return "Juli";
-  if (month === 7) return "August";
-  if (month === 8) return "September";
-  if (month === 9) return "Oktober";
-  if (month === 10) return "November";
-  if (month === 11) return "Dezember";
-}
+const month = dateToday.getMonth();
+const monthNames = [
+  "Januar",
+  "Februar",
+  "März",
+  "April",
+  "Mai",
+  "Juni",
+  "Juli",
+  "August",
+  "September",
+  "Oktober",
+  "November",
+  "Dezember",
+];
+const monthName = monthNames[month];
 document.getElementById("fullMonth").textContent = monthName;
 document.getElementById("fullMonth1").textContent = monthName;
 document.getElementById("fullMonth2").textContent = monthName;
@@ -39,7 +36,7 @@ document.getElementById("fullMonth3").textContent = monthName;
 document.getElementById("fullMonth4").textContent = monthName;
 document.getElementById("fullMonth5").textContent = monthName;
 
-let year = dateToday.getFullYear();
+const year = dateToday.getFullYear();
 // Um die vergangenen und verbleibenden Tage richtig zu berechnen,
 // nutze ich eine Formel für die Schaltjahre:
 let isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
@@ -47,7 +44,7 @@ let daysInYear = getDaysInYear(year);
 // Ausgabe ob Schaltjahr:
 function getDaysInYear() {
   if (isLeapYear === true) return 366;
-  if (isLeapYear === false) return 365;
+  else return 365;
 }
 document.getElementById("yearDig").textContent = year;
 document.getElementById("yearDig1").textContent = year;
@@ -87,9 +84,7 @@ datePeriod = finalDatePeriod() + ".";
 // füge ich eine "0" vor die einzelnen Zahlen hinzu:
 function finalDatePeriod() {
   if (day < 10) return "0" + day;
-  else {
-    return day;
-  }
+  else return day;
 }
 document.getElementById("day").textContent = datePeriod;
 document.getElementById("day1").textContent = datePeriod;
