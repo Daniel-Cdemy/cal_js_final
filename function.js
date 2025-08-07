@@ -244,88 +244,32 @@ pentecostMonday.setDate(pentecostMonday.getDate() + 1);
 
 document.getElementById("holiday").textContent = isHoliday();
 
-// const tdCells = [
-//   "1",
-//   "2",
-//   "3",
-//   "4",
-//   "5",
-//   "6",
-//   "7",
-//   "8",
-//   "9",
-//   "10",
-//   "11",
-//   "12",
-//   "13",
-//   "14",
-//   "15",
-//   "16",
-//   "17",
-//   "18",
-//   "19",
-//   "20",
-//   "21",
-//   "22",
-//   "23",
-//   "24",
-//   "25",
-//   "26",
-//   "27",
-//   "28",
-//   "29",
-//   "30",
-//   "31",
-//   "32",
-//   "33",
-//   "34",
-//   "35",
-//   "36",
-//   "37",
-//   "38",
-//   "39",
-//   "40",
-//   "41",
-//   "42",
-// ];
-
 function createCalendarTable(today) {
-  // Setze year aufJahr(today)
   let year = today.getFullYear();
-  // Setze month auf Monat(today)
   let month = today.getMonth();
-  // Setze calendarFirstInMonth auf den Monatsersten von (month)
   let calendarFirstInMonth = new Date(year, month, 1);
-  console.log("calendarFirstInMonth: ", calendarFirstInMonth);
   let calendarFirstInMonthWeekday = calendarFirstInMonth.getDay();
-  console.log("calendarFirstInMonthWeekday: ", calendarFirstInMonthWeekday);
-  console.log("diff: ", (calendarFirstInMonthWeekday - 1 + 7) % 7);
   let calendarFirstDay = new Date(
     year,
     month,
     1 - ((calendarFirstInMonthWeekday - 1 + 7) % 7)
   );
-  console.log("calendarFirstDay: ", calendarFirstDay);
   let calendarLastInMonth = new Date(year, month + 1, 0);
-  console.log("calendarLastInMonth: ", calendarLastInMonth);
   let calendarLastDay = new Date(
     year,
     month,
     calendarLastInMonth.getDate() + ((7 - calendarLastInMonth.getDay()) % 7)
   );
-  console.log("calendarLastDay: ", calendarLastDay);
 
   let datum = new Date(
     calendarFirstDay.getFullYear(),
     calendarFirstDay.getMonth(),
     calendarFirstDay.getDate()
   );
-  console.log(datum);
 
   const calendarTable = document.getElementById("calendarTableBody");
   let tr;
   while (datum <= calendarLastDay) {
-    console.log("Datum: ", datum);
     if (datum.getDay() === 1) {
       tr = document.createElement("tr");
     }
@@ -337,26 +281,12 @@ function createCalendarTable(today) {
     ) {
       td.classList.add("today");
     }
-    if (feiertag) {
-      td.classList.add("feiertag");
-    }
     tr.appendChild(td);
     if (datum.getDay() === 0) {
       calendarTable.appendChild(tr);
     }
     datum.setDate(datum.getDate() + 1);
   }
-  // let counter = 0;
-  // for (let i = 0; i < 6; i++) {
-  //   let tr = document.createElement("tr");
-  //   for (let j = 0; j < 7; j++) {
-  //     let td = document.createElement("td");
-  //     td.textContent = tdCells[counter];
-  //     counter++;
-  //     tr.appendChild(td);
-  //   }
-  //   calendarTable.appendChild(tr);
-  // }
 }
 
 createCalendarTable(dateToday);
