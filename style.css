@@ -102,17 +102,17 @@ body {
 }
 
 .today {
-  background: rgb(255, 68, 0);
+  background: rgb(121, 32, 0);
   color: white;
 }
 
 .holiday {
-  background: rgba(255, 68, 0, 0.295);
+  background: rgba(121, 32, 0, 0.514);
   color: white;
 }
 
 .content-table tbody td:hover {
-  background-color: rgb(247, 144, 107);
+  background-color: #0b486b;
   color: white;
 }
 

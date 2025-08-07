@@ -1,5 +1,5 @@
 // --- START --- //
-const dateToday = new Date();
+const dateToday = new Date("2025-01-05");
 const weekday = dateToday.getDay();
 const dayNames = [
   "Sonntag",
@@ -94,6 +94,20 @@ const pentecostMonday = new Date(pentecostSunday);
 pentecostMonday.setDate(pentecostMonday.getDate() + 1);
 document.getElementById("holiday").textContent = isHoliday();
 
+let holiday = [
+  newYearsDay,
+  laborDay,
+  germanUnityDay,
+  fistChristmasDay,
+  secondChristmasDay,
+  easterSunday,
+  easterMonday,
+  corpusChristi,
+  goodFriday,
+  pentecostSunday,
+  pentecostMonday,
+];
+
 function createCalendarTable(today) {
   let year = today.getFullYear();
   let month = today.getMonth();
@@ -130,6 +144,15 @@ function createCalendarTable(today) {
       today.getDate() === datum.getDate()
     ) {
       td.classList.add("today");
+    }
+    for (let h of holiday) {
+      if (
+        h.getFullYear() === datum.getFullYear() &&
+        h.getMonth() === datum.getMonth() &&
+        h.getDate() === datum.getDate()
+      ) {
+        td.classList.add("holiday");
+      }
     }
     tr.appendChild(td);
     if (datum.getDay() === 0) {
