@@ -77,22 +77,6 @@ body {
   cursor: pointer;
 }
 
-/* .content-table tbody tr:first-child td:first-child {
-  color: rgba(0, 0, 0, 0.301);
-}
-
-.content-table tbody tr:last-child td:nth-child(6) {
-  color: rgba(0, 0, 0, 0.301);
-}
-
-.content-table tbody tr:last-child td:nth-child(7) {
-  color: rgba(0, 0, 0, 0.301);
-}
-
-.content-table tbody tr:last-child td:nth-child(5) {
-  color: rgba(0, 0, 0, 0.301);
-} */
-
 .content-table tbody td:nth-child(6) {
   color: blue;
 }
@@ -161,7 +145,7 @@ body {
   background-color: rgba(90, 90, 90, 0.5);
 }
 
-.myclock {
+/* .myclock {
   position: relative;
   margin-top: -3rem;
   margin-left: 5rem;
@@ -235,7 +219,7 @@ body {
   100% {
     transform: rotate(270deg);
   }
-}
+} */
 
 .grid-container {
   display: grid;
