@@ -102,18 +102,24 @@ body {
 }
 
 .today {
-  background: rgb(121, 32, 0);
-  color: white;
+  background: rgb(170, 122, 0);
+  color: whitesmoke !important;
 }
 
 .holiday {
-  background: rgba(121, 32, 0, 0.514);
-  color: white;
+  background: darkred;
+  opacity: 0.85;
+  color: whitesmoke !important;
+}
+
+.otherMonth {
+  color: rgba(0, 0, 0, 0.5) !important;
+  opacity: 0.5;
 }
 
 .content-table tbody td:hover {
   background-color: #0b486b;
-  color: white;
+  color: white !important;
 }
 
 .content-table caption {

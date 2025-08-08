@@ -1,5 +1,5 @@
 // --- START --- //
-const dateToday = new Date("2025-01-05");
+const dateToday = new Date("2025-04-12");
 const weekday = dateToday.getDay();
 const dayNames = [
   "Sonntag",
@@ -58,6 +58,7 @@ document.getElementById("diffStart").textContent = finalDiffInDays;
 let remainingDays = daysInYear - diffInDays;
 document.getElementById("remainingDays").textContent = remainingDays;
 
+// Der wievielte des tages ist es in dem Monat:
 let day = dateToday.getDate();
 let wievielte = getWievielte(day);
 document.getElementById("wievielte").textContent = wievielte;
@@ -67,6 +68,7 @@ datePeriod = finalDatePeriod() + ".";
 document.querySelectorAll('[data-role="day"]').forEach((el) => {
   el.textContent = datePeriod;
 });
+
 // Ermittlung des letzten Tages im aktuellen Monat:
 const lastDayInMonth = new Date(year, month + 1, 0).getDate();
 document.getElementById("lastDayInMonth").textContent = lastDayInMonth;
@@ -93,7 +95,7 @@ const pentecostSunday = getPentecostSunday(year);
 const pentecostMonday = new Date(pentecostSunday);
 pentecostMonday.setDate(pentecostMonday.getDate() + 1);
 document.getElementById("holiday").textContent = isHoliday();
-
+// Array für die Feiertage:
 let holiday = [
   newYearsDay,
   laborDay,
@@ -107,18 +109,24 @@ let holiday = [
   pentecostSunday,
   pentecostMonday,
 ];
-
+// Funktion um das Kalenderblatt im HTML zu generieren:
 function createCalendarTable(today) {
   let year = today.getFullYear();
   let month = today.getMonth();
+  // Den ersten Tag des aktuellen Monats feststellen:
   let calendarFirstInMonth = new Date(year, month, 1);
+  // Was ist der erste für ein Wochentag:
   let calendarFirstInMonthWeekday = calendarFirstInMonth.getDay();
+  // Montag auf "0" setzen, damit der Kalender an einem Montag beginnt.
+  // (1-), damit der Kalender so lange zurück geht, bis ein Montag erreicht wird
   let calendarFirstDay = new Date(
     year,
     month,
     1 - ((calendarFirstInMonthWeekday - 1 + 7) % 7)
   );
   let calendarLastInMonth = new Date(year, month + 1, 0);
+  // Der Kalender endet pro Reihe auf einen Sonntag. Falls der Monat nicht
+  // an einem Sonntag endet, werden so viele spalten addiert, bis Sonntag erreicht ist.
   let calendarLastDay = new Date(
     year,
     month,
@@ -132,19 +140,30 @@ function createCalendarTable(today) {
   );
 
   const calendarTable = document.getElementById("calendarTableBody");
+  // Variable tr anfangs leer, weil sie erst erzeugt wird, sobald eine neue Woche beginnt
   let tr;
+  // Schleife starten, die so lange läuft bis der letzte tag
+  // in der Kalenderblattreihe erreicht oder überschritten wird:
   while (datum <= calendarLastDay) {
+    // neue Tabellenreihe, wenn Montag ist:
     if (datum.getDay() === 1) {
       tr = document.createElement("tr");
     }
     let td = document.createElement("td");
+    // Text in Zelle auf aktuellen Tag im Monat setzen:
     td.textContent = datum.getDate();
+    // prüfen, ob der tag zu einem anderen Monat gehört:
+    if (datum.getMonth() !== today.getMonth()) {
+      td.classList.add("otherMonth");
+    }
+    // Prüfung ob das heutige Datum dieser Tag ist
     if (
       today.getMonth() === datum.getMonth() &&
       today.getDate() === datum.getDate()
     ) {
       td.classList.add("today");
     }
+    // Feiertage im Array durchgehen und prüfen ob Datum übereinstimmt:
     for (let h of holiday) {
       if (
         h.getFullYear() === datum.getFullYear() &&
@@ -155,9 +174,12 @@ function createCalendarTable(today) {
       }
     }
     tr.appendChild(td);
+    // Wenn Sonntag erreicht ist, Reihe zu Ende:
     if (datum.getDay() === 0) {
       calendarTable.appendChild(tr);
     }
+    // Datum um einen Tag erhöhen, um Schleife auf nächsten
+    // Kalendertag zu verschieben:
     datum.setDate(datum.getDate() + 1);
   }
 }
