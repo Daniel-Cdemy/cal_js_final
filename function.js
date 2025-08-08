@@ -1,6 +1,8 @@
 // --- START --- //
+
 const dateToday = new Date("2025-04-12");
 const weekday = dateToday.getDay();
+// Array für Wochentagnamen:
 const dayNames = [
   "Sonntag",
   "Montag",
@@ -16,6 +18,7 @@ document.querySelectorAll('[data-role="dayname"]').forEach((el) => {
 });
 
 const month = dateToday.getMonth();
+// Array für Monatsnamen:
 const monthNames = [
   "Januar",
   "Februar",
@@ -74,12 +77,15 @@ const lastDayInMonth = new Date(year, month + 1, 0).getDate();
 document.getElementById("lastDayInMonth").textContent = lastDayInMonth;
 
 // Feste Feiertage:
+
 const newYearsDay = new Date(year, 0, 1);
 const laborDay = new Date(year, 4, 1);
 const germanUnityDay = new Date(year, 9, 3);
 const fistChristmasDay = new Date(year, 11, 25);
 const secondChristmasDay = new Date(year, 11, 26);
+
 // Bewegliche Feiertage:
+
 const easterSunday = getEasterSunday(year);
 // Berechnung Ostermontag anhand von Ostersonntag:
 const easterMonday = new Date(easterSunday);
@@ -95,6 +101,7 @@ const pentecostSunday = getPentecostSunday(year);
 const pentecostMonday = new Date(pentecostSunday);
 pentecostMonday.setDate(pentecostMonday.getDate() + 1);
 document.getElementById("holiday").textContent = isHoliday();
+
 // Array für die Feiertage:
 let holiday = [
   newYearsDay,
@@ -109,6 +116,7 @@ let holiday = [
   pentecostSunday,
   pentecostMonday,
 ];
+
 // Funktion um das Kalenderblatt im HTML zu generieren:
 function createCalendarTable(today) {
   let year = today.getFullYear();
@@ -118,7 +126,7 @@ function createCalendarTable(today) {
   // Was ist der erste für ein Wochentag:
   let calendarFirstInMonthWeekday = calendarFirstInMonth.getDay();
   // Montag auf "0" setzen, damit der Kalender an einem Montag beginnt.
-  // (1-), damit der Kalender so lange zurück geht, bis ein Montag erreicht wird
+  // (1-), damit der Kalender soviele Zellen zurück geht, bis ein Montag erreicht wird
   let calendarFirstDay = new Date(
     year,
     month,
@@ -126,19 +134,17 @@ function createCalendarTable(today) {
   );
   let calendarLastInMonth = new Date(year, month + 1, 0);
   // Der Kalender endet pro Reihe auf einen Sonntag. Falls der Monat nicht
-  // an einem Sonntag endet, werden so viele spalten addiert, bis Sonntag erreicht ist.
+  // an einem Sonntag endet, werden so viele Zellen addiert, bis Sonntag erreicht ist.
   let calendarLastDay = new Date(
     year,
     month,
     calendarLastInMonth.getDate() + ((7 - calendarLastInMonth.getDay()) % 7)
   );
-
   let datum = new Date(
     calendarFirstDay.getFullYear(),
     calendarFirstDay.getMonth(),
     calendarFirstDay.getDate()
   );
-
   const calendarTable = document.getElementById("calendarTableBody");
   // Variable tr anfangs leer, weil sie erst erzeugt wird, sobald eine neue Woche beginnt
   let tr;
@@ -183,9 +189,10 @@ function createCalendarTable(today) {
     datum.setDate(datum.getDate() + 1);
   }
 }
+// Funktion mit aktuellem Datum ausführen:
 createCalendarTable(dateToday);
 
-// --- Functions --- //
+// --- Funktionen --- //
 
 // Damit einzelne Zahlen sich nicht von den doppelten unterscheiden,
 // füge ich eine "0" vor die einzelnen Zahlen hinzu:
@@ -193,6 +200,7 @@ function finalDatePeriod() {
   if (day < 10) return "0" + day;
   else return day;
 }
+// Der wievielte Wochentag im Monat:
 function getWievielte() {
   if (day < 8) return "erste";
   if (day < 15) return "zweite";
