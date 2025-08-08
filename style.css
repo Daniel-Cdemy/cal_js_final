@@ -101,11 +101,6 @@ body {
   color: red;
 }
 
-.today {
-  background: rgb(170, 122, 0);
-  color: whitesmoke !important;
-}
-
 .holiday {
   background: darkred;
   opacity: 0.85;
@@ -115,6 +110,11 @@ body {
 .otherMonth {
   color: rgba(0, 0, 0, 0.5) !important;
   opacity: 0.5;
+}
+
+.today {
+  background: rgb(170, 122, 0);
+  color: whitesmoke !important;
 }
 
 .content-table tbody td:hover {
