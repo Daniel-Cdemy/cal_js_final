@@ -156,9 +156,9 @@ function createCalendarTable(today) {
       tr = document.createElement("tr");
     }
     let td = document.createElement("td");
-    // Text in Zelle auf aktuellen Tag im Monat setzen:
+    // Text in Zelle auf aktuelle Tage im Monat setzen:
     td.textContent = datum.getDate();
-    // prüfen, ob der tag zu einem anderen Monat gehört:
+    // prüfen, ob die Tage zu einem anderen Monat gehören:
     if (datum.getMonth() !== today.getMonth()) {
       td.classList.add("otherMonth");
     }
