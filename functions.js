@@ -1,12 +1,14 @@
 // Funktion erstellen, um meine Datum-variablen zu definieren
 export function myDateVariables() {
-  const dateToday = new Date();
+  const dateToday = new Date("2025-12-25");
   const year = dateToday.getFullYear();
   const month = dateToday.getMonth();
   const day = dateToday.getDate();
   const weekday = dateToday.getDay();
   return { dateToday, year, month, day, weekday }; // Return um die Datum-variablen als Keys an die Funktion zurück zu geben
 }
+
+const { year } = myDateVariables();
 
 // Funktion erstellen, um Wochentage als selbstdefinierten String und nicht als Zahl auszugeben
 export function getWeekdayName(weekdayNumber) {
@@ -19,9 +21,9 @@ export function getWeekdayName(weekdayNumber) {
     "Freitag",
     "Samstag",
   ];
-  return dayNames[weekdayNumber]; // Return um die umgewandelten daten (int to str) an die funktion zurück zu geben
+  return dayNames[weekdayNumber]; // Return um die umgewandelten Daten (int to str) an die Funktion zurück zu geben
 }
-
+// Funktion erstellen, um Monatsnamen als selbstdefinierten String und nicht als Zahl auszugeben
 export function getMonthName(monthNumber) {
   const monthNames = [
     "Januar",
@@ -37,7 +39,7 @@ export function getMonthName(monthNumber) {
     "November",
     "Dezember",
   ];
-  return monthNames[monthNumber]; // Return um die umgewandelten daten (int to str) an die funktion zurück zu geben
+  return monthNames[monthNumber]; // Return um die umgewandelten Daten (int to str) an die Funktion zurück zu geben
 }
 
 // Funktion um Schaltjahr zu berechnen
@@ -116,7 +118,13 @@ export function getMovableHolidays(year) {
   };
 }
 
-export function isSameDate(a, b) {
+const holidayDates = [
+  Object.values(getFixedHolidays(year)),
+  Object.values(getMovableHolidays(year)),
+];
+
+// Funktion um zu vergleichen ob Datum A == Datum B ist:
+function isSameDate(a, b) {
   return (
     a.getFullYear() === b.getFullYear() &&
     a.getMonth() === b.getMonth() &&
@@ -124,6 +132,8 @@ export function isSameDate(a, b) {
   );
 }
 
+// Funktion um Feiertage mit dem heutigen Tag zu vergleichen und
+// auszugeben welcher Feiertag ist, falls es einer ist.
 export function isHoliday(today, fixedHolidays, movableHolidays) {
   const {
     newYearsDay,
@@ -161,6 +171,8 @@ export function isHoliday(today, fixedHolidays, movableHolidays) {
   return "ist kein gesetzlicher Feiertag";
 }
 
+// Funktion um das heutige Datum mit dem 01.01. des Jahres zu vergleichen und
+// daraus die Differenz zu ermitteln
 export function dayOfYear(date) {
   const start = new Date(Date.UTC(date.getFullYear(), 0, 1));
   const current = new Date(
@@ -221,16 +233,15 @@ export function createCalendarTable(today) {
     ) {
       td.classList.add("today");
     }
-    // // Feiertage im Array durchgehen und prüfen ob Datum übereinstimmt:
-    // for (let h of holiday) {
-    //   if (
-    //     h.getFullYear() === datum.getFullYear() &&
-    //     h.getMonth() === datum.getMonth() &&
-    //     h.getDate() === datum.getDate()
-    //   ) {
-    //     td.classList.add("holiday");
-    //   }
-    // }
+    for (let h of holidayDates) {
+      if (
+        h === datum.getFullYear() &&
+        h === datum.getMonth() &&
+        h === datum.getDate()
+      ) {
+        td.classList.add("holiday");
+      }
+    }
     tr.appendChild(td);
     // Wenn Sonntag erreicht ist, Reihe zu Ende:
     if (datum.getDay() === 0) {

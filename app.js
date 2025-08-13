@@ -25,9 +25,8 @@ document.querySelectorAll('[data-role="day"]').forEach((el) => {
 });
 
 document.querySelectorAll('[data-role="dayname"]').forEach((el) => {
-  el.textContent = getWeekdayName(weekday); // Ich hole mir die Ausgabe aus der Funktion(getWeekdayName) in Kombination
-}); // mit meiner Variable (calendarData == Variable) und einem Key(.weekday == Key)
-// Funktion erstellen, um Wochentage als selbstdefinierten String und nicht als Zahl auszugeben
+  el.textContent = getWeekdayName(weekday); // Ich hole mir die Ausgabe aus der Funktion (getWeekdayName) in
+}); // Kombination mit einem Key(weekday == Key)
 
 document.querySelectorAll('[data-role="monthname"]').forEach((el) => {
   el.textContent = getMonthName(month); // Ich hole mir die Ausgabe aus der Funktion(getMonthName) in Kombination
