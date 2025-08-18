@@ -1,6 +1,6 @@
 // --- START --- //
 
-const dateToday = new Date("2025-04-12");
+const dateToday = new Date();
 const weekday = dateToday.getDay();
 // Array für Wochentagnamen:
 const dayNames = [
@@ -193,6 +193,26 @@ function createCalendarTable(today) {
 createCalendarTable(dateToday);
 
 // --- Funktionen --- //
+
+async function createHistoricalEvent(month, day, index) {
+  const list = document.getElementById("listData");
+  const listItem = document.createElement("li");
+  try {
+    const response = await fetch(
+      `https://history.muffinlabs.com/date/${month + 1}/${day}`
+    );
+    const data = await response.json();
+    listItem.innerText = `${data.data.Events[index].year}: ${data.data.Events[index].text}`;
+  } catch (error) {
+    console.error("Fehler beim Laden:", error);
+    throw error;
+  }
+  list.appendChild(listItem);
+}
+
+for (let i = 0; i < 5; i++) {
+  createHistoricalEvent(month, day, i);
+}
 
 // Damit einzelne Zahlen sich nicht von den doppelten unterscheiden,
 // füge ich eine "0" vor die einzelnen Zahlen hinzu:
