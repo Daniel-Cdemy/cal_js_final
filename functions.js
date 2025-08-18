@@ -8,8 +8,6 @@ export function myDateVariables() {
   return { dateToday, year, month, day, weekday }; // Return um die Datum-variablen als Keys an die Funktion zurück zu geben
 }
 
-const { year } = myDateVariables();
-
 // Funktion erstellen, um Wochentage als selbstdefinierten String und nicht als Zahl auszugeben
 export function getWeekdayName(weekdayNumber) {
   const dayNames = [
@@ -118,11 +116,6 @@ export function getMovableHolidays(year) {
   };
 }
 
-const holidayDates = [
-  Object.values(getFixedHolidays(year)),
-  Object.values(getMovableHolidays(year)),
-];
-
 // Funktion um zu vergleichen ob Datum A == Datum B ist:
 function isSameDate(a, b) {
   return (
@@ -185,6 +178,10 @@ export function dayOfYear(date) {
 export function createCalendarTable(today) {
   let year = today.getFullYear();
   let month = today.getMonth();
+  const holidayDates = [
+    Object.values(getFixedHolidays(year)),
+    Object.values(getMovableHolidays(year)),
+  ];
   // Den ersten Tag des aktuellen Monats feststellen:
   let calendarFirstInMonth = new Date(year, month, 1);
   // Was ist der erste für ein Wochentag:
