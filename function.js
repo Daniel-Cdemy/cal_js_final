@@ -1,21 +1,21 @@
 // // --- START --- //
 
-// const dateToday = new Date();
-// const weekday = dateToday.getDay();
-// // Array für Wochentagnamen:
-// const dayNames = [
-//   "Sonntag",
-//   "Montag",
-//   "Dienstag",
-//   "Mittwoch",
-//   "Donnerstag",
-//   "Freitag",
-//   "Samstag",
-// ];
-// const dayName = dayNames[weekday];
-// document.querySelectorAll('[data-role="dayname"]').forEach((el) => {
-//   el.textContent = dayNames[weekday];
-// });
+const dateToday = new Date();
+const weekday = dateToday.getDay();
+// Array für Wochentagnamen:
+const dayNames = [
+  "Sonntag",
+  "Montag",
+  "Dienstag",
+  "Mittwoch",
+  "Donnerstag",
+  "Freitag",
+  "Samstag",
+];
+const dayName = dayNames[weekday];
+document.querySelectorAll('[data-role="dayname"]').forEach((el) => {
+  el.textContent = dayNames[weekday];
+});
 
 // const month = dateToday.getMonth();
 // // Array für Monatsnamen:
@@ -192,7 +192,27 @@
 // // Funktion mit aktuellem Datum ausführen:
 // createCalendarTable(dateToday);
 
-// // --- Funktionen --- //
+// --- Funktionen --- //
+
+async function createHistoricalEvent(month, day, index) {
+  const list = document.getElementById("listData");
+  const listItem = document.createElement("li");
+  try {
+    const response = await fetch(
+      `https://history.muffinlabs.com/date/${month + 1}/${day}`
+    );
+    const data = await response.json();
+    listItem.innerText = `${data.data.Events[index].year}: ${data.data.Events[index].text}`;
+  } catch (error) {
+    console.error("Fehler beim Laden:", error);
+    throw error;
+  }
+  list.appendChild(listItem);
+}
+
+for (let i = 0; i < 5; i++) {
+  createHistoricalEvent(month, day, i);
+}
 
 // Damit einzelne Zahlen sich nicht von den doppelten unterscheiden,
 // füge ich eine "0" vor die einzelnen Zahlen hinzu:
