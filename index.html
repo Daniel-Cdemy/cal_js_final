@@ -21,44 +21,18 @@
         <source src="background.mp4" type="video/mp4" />
       </video>
       <div class="item-headline">
-        <h1 class="headline">
-          Kalenderblatt vom: </br>
-          <span data-role="day">Tag</span>
-          <span data-role="monthname">Monat</span>
-          <span data-role="year">Jahr</span>
-        </h1>
+        <h1 class="headline"></h1>
         <div class="transbox">
-          <p class="p">
-            Der
-            <span data-role="day">Tag</span>
-            <span data-role="monthname">Monat</span>
-            <span data-role="year">Jahr</span> ist ein
-            <span data-role="dayname">Wochentag</span> und zwar der
-            <span id="wievielte">Tag in Woche</span>
-            <span data-role="dayname">Wochentag</span> im Monat
-            <span data-role="monthname">Monat</span> des Jahres
-            <span data-role="year">Jahr</span>. Es handelt sich um den
-            <span id="diffStart">Differenz zum 01.01</span>
-            Tag des Jahres, was bedeutet, dass es noch
-            <span id="remainingDays">verbleibende Tage</span>
-            Tage bis zum Jahresende sind. Der
-            <span data-role="monthname">Monat</span>
-            hat ingesamt
-            <span id="lastDayInMonth">anzahl tage im monat</span>
-            Tage. Heute 
-            <span id="holiday">gesetzlicher Feiertag</span>
-            in Deutschland.
-          </p>
+          <p class="infoText"></p>
         </div>
       </div>
       <div class="item-cal">
         <div class="tablec">
           <table class="content-table">
             <caption>
-              <button class="captionButton" type="button"><</button>
-                <span data-role="monthname">Monat</span>
-                <span data-role="year">Jahr</span>
-              <button class="captionButton" type="button">></button>
+              <button id="buttonBackwards" type="button"><</button>
+                <captionTitle class="captionTitle"></captionTitle>
+              <button id="buttonForward" type="button">></button>
             </caption>
             <thead>
               <tr>

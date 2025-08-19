@@ -19,7 +19,7 @@ body {
   font-size: 20px;
 }
 
-.captionButton {
+#buttonBackwards {
   transition-duration: 0.2s;
   border: none;
   background: transparent;
@@ -28,7 +28,25 @@ body {
   color: whitesmoke;
 }
 
-.captionButton:hover {
+#buttonForward {
+  transition-duration: 0.2s;
+  border: none;
+  background: transparent;
+  font-size: 25px;
+  margin: 10px;
+  color: whitesmoke;
+}
+
+#buttonBackwards:hover {
+  margin: 10px;
+  color: white;
+  border: hidden;
+  border-radius: 33%;
+  box-shadow: 0 0 10px whitesmoke;
+  cursor: pointer;
+}
+
+#buttonForward:hover {
   margin: 10px;
   color: white;
   border: hidden;
