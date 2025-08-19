@@ -100,6 +100,7 @@ const pentecostSunday = getPentecostSunday(year);
 // Pfingstmontag anhand von Pfingstsonntag:
 const pentecostMonday = new Date(pentecostSunday);
 pentecostMonday.setDate(pentecostMonday.getDate() + 1);
+const AscensionDay = getAscensionDay(year);
 document.getElementById("holiday").textContent = isHoliday();
 
 // Array für die Feiertage:
@@ -115,6 +116,7 @@ let holiday = [
   goodFriday,
   pentecostSunday,
   pentecostMonday,
+  AscensionDay,
 ];
 
 // Funktion um das Kalenderblatt im HTML zu generieren:
@@ -262,92 +264,30 @@ function getPentecostSunday(year) {
   const easterSunday = getEasterSunday(year);
   return new Date(easterSunday.getTime() + 49 * 24 * 60 * 60 * 1000);
 }
+// Funktion um festzustellen, ob es das selbe Datum ist:
+function isSameDay(a, b) {
+  return (
+    a.getFullYear() == b.getFullYear() &&
+    a.getMonth() == b.getMonth() &&
+    a.getDate() == b.getDate()
+  );
+}
 // Überprüfen ob heute ein Feiertag ist:
 function isHoliday() {
-  if (
-    dateToday.getDate() === newYearsDay.getDate() &&
-    dateToday.getMonth() === newYearsDay.getMonth() &&
-    dateToday.getFullYear() === newYearsDay.getFullYear()
-  ) {
-    return "ist Neujahr";
-  }
-  if (
-    dateToday.getDate() === corpusChristi.getDate() &&
-    dateToday.getMonth() === corpusChristi.getMonth() &&
-    dateToday.getFullYear() === corpusChristi.getFullYear()
-  ) {
-    return "ist Fronleichnam";
-  }
-  if (
-    dateToday.getDate() === pentecostMonday.getDate() &&
-    dateToday.getMonth() === pentecostMonday.getMonth() &&
-    dateToday.getFullYear() === pentecostMonday.getFullYear()
-  ) {
-    return "ist Pfingstmontag";
-  }
-  if (
-    dateToday.getDate() === fistChristmasDay.getDate() &&
-    dateToday.getMonth() === fistChristmasDay.getMonth() &&
-    dateToday.getFullYear() === fistChristmasDay.getFullYear()
-  ) {
+  if (isSameDay(dateToday, newYearsDay)) return "ist Neujahr";
+  if (isSameDay(dateToday, corpusChristi)) return "ist Fronleichnam";
+  if (isSameDay(dateToday, pentecostMonday)) return "ist Pfingstmontag";
+  if (isSameDay(dateToday, fistChristmasDay))
     return "ist der erste Weihnachtstag";
-  }
-  if (
-    dateToday.getDate() === secondChristmasDay.getDate() &&
-    dateToday.getMonth() === secondChristmasDay.getMonth() &&
-    dateToday.getFullYear() === secondChristmasDay.getFullYear()
-  ) {
+  if (isSameDay(dateToday, secondChristmasDay))
     return "ist der zweite Weihnachtstag";
-  }
-  if (
-    dateToday.getDate() === goodFriday.getDate() &&
-    dateToday.getMonth() === goodFriday.getMonth() &&
-    dateToday.getFullYear() === goodFriday.getFullYear()
-  ) {
-    return "ist Karfreitag";
-  }
-  if (
-    dateToday.getDate() === easterMonday.getDate() &&
-    dateToday.getMonth() === easterMonday.getMonth() &&
-    dateToday.getFullYear() === easterMonday.getFullYear()
-  ) {
-    return "ist Ostermontag";
-  }
-  if (
-    dateToday.getDate() === laborDay.getDate() &&
-    dateToday.getMonth() === laborDay.getMonth() &&
-    dateToday.getFullYear() === laborDay.getFullYear()
-  ) {
-    return "ist Tag der Arbeit";
-  }
-  if (
-    dateToday.getDate() === germanUnityDay.getDate() &&
-    dateToday.getMonth() === germanUnityDay.getMonth() &&
-    dateToday.getFullYear() === germanUnityDay.getFullYear()
-  ) {
+  if (isSameDay(dateToday, goodFriday)) return "ist Karfreitag";
+  if (isSameDay(dateToday, easterMonday)) return "ist Ostermontag";
+  if (isSameDay(dateToday, laborDay)) return "ist Tag der Arbeit";
+  if (isSameDay(dateToday, germanUnityDay))
     return "ist Tag der Deutschen Einheit";
-  }
-  if (
-    dateToday.getDate() === getEasterSunday(year).getDate() &&
-    dateToday.getMonth() === getEasterSunday(year).getMonth() &&
-    dateToday.getFullYear() === getEasterSunday(year).getFullYear()
-  ) {
-    return "ist Ostersonntag";
-  }
-  if (
-    dateToday.getDate() === getAscensionDay(year).getDate() &&
-    dateToday.getMonth() === getAscensionDay(year).getMonth() &&
-    dateToday.getFullYear() === getAscensionDay(year).getFullYear()
-  ) {
-    return "ist Christi Himmelfahrt";
-  }
-  if (
-    dateToday.getDate() === getPentecostSunday(year).getDate() &&
-    dateToday.getMonth() === getPentecostSunday(year).getMonth() &&
-    dateToday.getFullYear() === getPentecostSunday(year).getFullYear()
-  ) {
-    return "ist Pfingstsonntag";
-  } else {
-    return "ist kein gesetzlicher Feiertag";
-  }
+  if (isSameDay(dateToday, easterSunday)) return "ist Ostersonntag";
+  if (isSameDay(dateToday, pentecostSunday)) return "ist Pfingstsonntag";
+  if (isSameDay(dateToday, AscensionDay)) return "ist Christi Himmelfahrt";
+  else return "ist kein gesetzlicher Feiertag";
 }
