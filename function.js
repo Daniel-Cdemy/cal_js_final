@@ -1,5 +1,5 @@
 // // --- START --- //
-const today = new Date();
+const today = new Date(2024, 1, 7);
 const dateToday = new Date(
   today.getFullYear(),
   today.getMonth(),
@@ -245,11 +245,14 @@ function getOrdinalWeekday(day) {
   if (day < 15) return "zweite";
   if (day < 22) return "dritte";
   if (day < 29) return "vierte";
-  else return "fünfte";
+  return "fünfte";
 }
 
 function changeMonth(direction) {
-  alert(direction);
+  const year = dateSelected.getFullYear();
+  const month = dateSelected.getMonth();
+  dateSelected = new Date(year, month + direction, 1);
+  generateCalender(dateSelected);
 }
 
 generateCalender(dateToday);
