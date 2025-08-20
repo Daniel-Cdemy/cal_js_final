@@ -6,6 +6,20 @@ const dateToday = new Date(
   today.getDate()
 );
 let dateSelected = dateToday;
+const monthNames = [
+  "Januar",
+  "Februar",
+  "März",
+  "April",
+  "Mai",
+  "Juni",
+  "Juli",
+  "August",
+  "September",
+  "Oktober",
+  "November",
+  "Dezember",
+];
 
 const back = document
   .getElementById("buttonBackwards")
@@ -21,20 +35,6 @@ const forward = document
 function generateCalender(date) {
   const year = date.getFullYear();
   const monthIndex = date.getMonth();
-  const monthNames = [
-    "Januar",
-    "Februar",
-    "März",
-    "April",
-    "Mai",
-    "Juni",
-    "Juli",
-    "August",
-    "September",
-    "Oktober",
-    "November",
-    "Dezember",
-  ];
   const monthName = monthNames[monthIndex];
   const dayNumber = date.getDate();
   const weekDayNumber = date.getDay();
@@ -44,6 +44,14 @@ function generateCalender(date) {
   createCalendarTable(date, dateToday, year, monthIndex);
   generateHistoryHeader(dayNumber, monthName);
   generateHistoryList(monthIndex, dayNumber, 5);
+}
+
+function generateCalendarTable(date) {
+  const year = date.getFullYear();
+  const monthIndex = date.getMonth();
+  const monthName = monthNames[monthIndex];
+  generateTableHeader(monthName, year);
+  createCalendarTable(date, dateToday, year, monthIndex);
 }
 
 function generateHeader(year, monthName, day) {
@@ -252,7 +260,7 @@ function changeMonth(direction) {
   const year = dateSelected.getFullYear();
   const month = dateSelected.getMonth();
   dateSelected = new Date(year, month + direction, 1);
-  generateCalender(dateSelected);
+  generateCalendarTable(dateSelected);
 }
 
 generateCalender(dateToday);
