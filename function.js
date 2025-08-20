@@ -1,6 +1,10 @@
 // // --- START --- //
-
-const dateToday = new Date();
+const today = new Date();
+const dateToday = new Date(
+  today.getFullYear(),
+  today.getMonth(),
+  today.getDate()
+);
 let dateSelected = dateToday;
 
 function generateCalender(date) {
@@ -24,13 +28,11 @@ function generateCalender(date) {
   const day = date.getDate();
   const dayNumber = date.getDay();
   generateHeader(year, monthName, day);
-  generateInfotext(year, monthName, day, dayNumber);
+  generateInfotext(date, year, monthName, day, dayNumber, monthIndex);
   generateTableHeader(monthName, year);
-  createCalendarTable(dateToday, year, monthIndex);
+  createCalendarTable(date, dateToday, year, monthIndex);
   generateHistoryHeader(day, monthName);
-  for (let i = 0; i < 5; i++) {
-    generateHistoryList(monthIndex, day, i);
-  }
+  generateHistoryList(monthIndex, day, 5);
 }
 
 function generateHeader(year, monthName, day) {
@@ -38,39 +40,8 @@ function generateHeader(year, monthName, day) {
   headline.innerText = `Kalenderblatt vom ${day}. ${monthName} ${year}`;
 }
 
-function generateInfotext(year, monthName, day, dayNumber) {
-  // const newYearsDay = new Date(year, 0, 1);
-  // const laborDay = new Date(year, 4, 1);
-  // const germanUnityDay = new Date(year, 9, 3);
-  // const fistChristmasDay = new Date(year, 11, 25);
-  // const secondChristmasDay = new Date(year, 11, 26);
-  // const easterSunday = getEasterSunday(year);
-  // const easterMonday = new Date(easterSunday);
-  // easterMonday.setDate(easterMonday.getDate() + 1);
-  // const corpusChristi = new Date(easterSunday);
-  // corpusChristi.setDate(corpusChristi.getDate() + 60);
-  // const goodFriday = new Date(easterSunday);
-  // goodFriday.setDate(goodFriday.getDate() - 2);
-  // const pentecostSunday = getPentecostSunday(year);
-  // const pentecostMonday = new Date(pentecostSunday);
-  // pentecostMonday.setDate(pentecostMonday.getDate() + 1);
-  // const AscensionDay = getAscensionDay(year);
-
-  // const holiday = [
-  //   newYearsDay,
-  //   laborDay,
-  //   germanUnityDay,
-  //   fistChristmasDay,
-  //   secondChristmasDay,
-  //   easterSunday,
-  //   easterMonday,
-  //   corpusChristi,
-  //   goodFriday,
-  //   pentecostSunday,
-  //   pentecostMonday,
-  //   AscensionDay,
-  // ];
-
+function generateInfotext(date, year, monthName, day, dayNumber, monthIndex) {
+  const lastDayInMonth = new Date(year, monthIndex + 1, 0).getDate();
   const dayNames = [
     "Sonntag",
     "Montag",
@@ -81,11 +52,18 @@ function generateInfotext(year, monthName, day, dayNumber) {
     "Samstag",
   ];
   const dayName = dayNames[dayNumber];
+  const holiday = isHoliday(date)
+    ? isHoliday(date)
+    : "kein gesetzlicher Feiertag";
+  const ordinalWeekday = "xxx";
+  const remainingDaysOfYear = "xxx";
+  const dayCount = "xxx";
+
   const infoText = document.getElementsByClassName("infoText")[0];
   infoText.innerText = `Der ${day}. ${monthName} ${year} ist ein ${dayName} und zwar
-  der ... ${dayName} im ${monthName} des Jahres ${year}. Es handelt sich um den ... Tag des
-  Jahres, was bedeutet, dass es noch ... Tage bis zum Jahresende sind. Der ${monthName} hat
-  insgesamt ... Tage. Heute is ... in Deutschland`;
+  der ${ordinalWeekday} ${dayName} im ${monthName} des Jahres ${year}. Es handelt sich um den ${dayCount} Tag des
+  Jahres, was bedeutet, dass es noch ${remainingDaysOfYear} Tage bis zum Jahresende sind. Der ${monthName} hat
+  insgesamt ${lastDayInMonth} Tage. Heute ist ${holiday} in Deutschland`;
 }
 
 function generateTableHeader(monthName, year) {
@@ -93,7 +71,7 @@ function generateTableHeader(monthName, year) {
   captionTitle.innerText = `${monthName} ${year}`;
 }
 
-function createCalendarTable(today, year, monthIndex) {
+function createCalendarTable(date, today, year, monthIndex) {
   let calendarFirstInMonth = new Date(year, monthIndex, 1);
   let calendarFirstInMonthWeekday = calendarFirstInMonth.getDay();
   let calendarFirstDay = new Date(
@@ -107,72 +85,64 @@ function createCalendarTable(today, year, monthIndex) {
     monthIndex,
     calendarLastInMonth.getDate() + ((7 - calendarLastInMonth.getDay()) % 7)
   );
-  let datum = new Date(
-    calendarFirstDay.getFullYear(),
-    calendarFirstDay.getMonth(),
-    calendarFirstDay.getDate()
-  );
   const calendarTable = document.getElementById("calendarTableBody");
   calendarTable.innerHTML = "";
   let tr;
-  while (datum <= calendarLastDay) {
-    if (datum.getDay() === 1) {
+  while (calendarFirstDay <= calendarLastDay) {
+    if (calendarFirstDay.getDay() === 1) {
       tr = document.createElement("tr");
     }
     let td = document.createElement("td");
-    td.textContent = datum.getDate();
-    if (datum.getMonth() !== today.getMonth()) {
+    td.textContent = calendarFirstDay.getDate();
+    if (calendarFirstDay.getMonth() !== date.getMonth()) {
       td.classList.add("otherMonth");
     }
-    if (
-      today.getMonth() === datum.getMonth() &&
-      today.getDate() === datum.getDate()
-    ) {
+    if (today.getTime() === calendarFirstDay.getTime()) {
       td.classList.add("today");
     }
-    // for (let h of holiday) {
-    //   if (
-    //     h.getFullYear() === datum.getFullYear() &&
-    //     h.getMonth() === datum.getMonth() &&
-    //     h.getDate() === datum.getDate()
-    //   ) {
-    //     td.classList.add("holiday");
-    //   }
-    // }
+    if (isHoliday(calendarFirstDay)) {
+      td.classList.add("holiday");
+    }
     tr.appendChild(td);
-    if (datum.getDay() === 0) {
+    if (calendarFirstDay.getDay() === 0) {
       calendarTable.appendChild(tr);
     }
-    datum.setDate(datum.getDate() + 1);
+    calendarFirstDay.setDate(calendarFirstDay.getDate() + 1);
   }
 }
-createCalendarTable(dateSelected);
+// createCalendarTable(dateSelected);
 
 function generateHistoryHeader(day, monthName) {
   const headline = document.getElementsByClassName("headline")[1];
   headline.innerText = `Historische Ereignisse am: ${day}. ${monthName}`;
 }
 
-async function generateHistoryList(monthIndex, day, index) {
+async function generateHistoryList(monthIndex, day, count) {
   const list = document.getElementById("listData");
-  const listItem = document.createElement("li");
-  try {
-    const response = await fetch(
-      `https://history.muffinlabs.com/date/${monthIndex + 1}/${day}`
-    );
-    const data = await response.json();
-    listItem.innerText = `${data.data.Events[index].year}: ${data.data.Events[index].text}`;
-  } catch (error) {
-    console.error("Fehler beim Laden:", error);
-    throw error;
+  for (let i = 0; i < count; i++) {
+    const listItem = document.createElement("li");
+    try {
+      const response = await fetch(
+        `https://history.muffinlabs.com/date/${monthIndex + 1}/${day}`
+      );
+      const data = await response.json();
+      const historicalEvent = data.data.Events[data.data.Events.length - i - 1];
+      listItem.innerText = `${historicalEvent.year}: ${historicalEvent.text}`;
+    } catch (error) {
+      console.error("Fehler beim Laden:", error);
+      throw error;
+    }
+    list.appendChild(listItem);
   }
-  list.appendChild(listItem);
 }
 
-// // Um die vergangenen und verbleibenden Tage richtig zu berechnen,
-// // nutze ich eine Formel für die Schaltjahre:
 // let isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 // let daysInYear = getDaysInYear(year);
+
+// function getDaysInYear() {
+//   if (isLeapYear === true) return 366;
+//   else return 365;
+// }
 // document.querySelectorAll('[data-role="year"]').forEach((el) => {
 //   el.textContent = year;
 // });
@@ -207,48 +177,80 @@ async function generateHistoryList(monthIndex, day, index) {
 // const lastDayInMonth = new Date(year, month + 1, 0).getDate();
 // document.getElementById("lastDayInMonth").textContent = lastDayInMonth;
 
-// // Feste Feiertage:
+// // Berechnung von Ostersonntag nach Gauß:
+function getEasterSunday(year) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const n = (h + l - 7 * m + 114) % 31;
+  const day = n + 1;
+  const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
+  return new Date(year, month, day);
+}
+// Berechnung Christi Himmelfahrt anhand von Ostersonntag:
+function getAscensionDay(year) {
+  const easterSunday = getEasterSunday(year);
+  return new Date(easterSunday.getTime() + 39 * 24 * 60 * 60 * 1000);
+}
+// Berechnung von Pfingstsonntag anhand von Ostersonntag:
+function getPentecostSunday(year) {
+  const easterSunday = getEasterSunday(year);
+  return new Date(easterSunday.getTime() + 49 * 24 * 60 * 60 * 1000);
+}
 
-// const newYearsDay = new Date(year, 0, 1);
-// const laborDay = new Date(year, 4, 1);
-// const germanUnityDay = new Date(year, 9, 3);
-// const fistChristmasDay = new Date(year, 11, 25);
-// const secondChristmasDay = new Date(year, 11, 26);
+function isHoliday(date) {
+  const year = date.getFullYear();
 
-// // Bewegliche Feiertage:
+  // Feste Feiertage:
+  const newYearsDay = new Date(year, 0, 1);
+  const laborDay = new Date(year, 4, 1);
+  const germanUnityDay = new Date(year, 9, 3);
+  const fistChristmasDay = new Date(year, 11, 25);
+  const secondChristmasDay = new Date(year, 11, 26);
 
-// const easterSunday = getEasterSunday(year);
-// // Berechnung Ostermontag anhand von Ostersonntag:
-// const easterMonday = new Date(easterSunday);
-// easterMonday.setDate(easterMonday.getDate() + 1);
-// // Berechnung von Fronleichnam anhand von Ostersonntag:
-// const corpusChristi = new Date(easterSunday);
-// corpusChristi.setDate(corpusChristi.getDate() + 60);
-// // Berechnung Karfreitag anhand von Ostersonntag:
-// const goodFriday = new Date(easterSunday);
-// goodFriday.setDate(goodFriday.getDate() - 2);
-// const pentecostSunday = getPentecostSunday(year);
-// // Pfingstmontag anhand von Pfingstsonntag:
-// const pentecostMonday = new Date(pentecostSunday);
-// pentecostMonday.setDate(pentecostMonday.getDate() + 1);
-// const AscensionDay = getAscensionDay(year);
-// document.getElementById("holiday").textContent = isHoliday();
+  // Bewegliche Feiertage:
+  const easterSunday = getEasterSunday(year);
+  const easterMonday = new Date(easterSunday);
+  easterMonday.setDate(easterMonday.getDate() + 1);
+  const corpusChristi = new Date(easterSunday);
+  corpusChristi.setDate(corpusChristi.getDate() + 60);
+  const goodFriday = new Date(easterSunday);
+  goodFriday.setDate(goodFriday.getDate() - 2);
+  const pentecostSunday = getPentecostSunday(year);
+  const pentecostMonday = new Date(pentecostSunday);
+  pentecostMonday.setDate(pentecostMonday.getDate() + 1);
+  const AscensionDay = getAscensionDay(year);
 
-// // Array für die Feiertage:
-// let holiday = [
-//   newYearsDay,
-//   laborDay,
-//   germanUnityDay,
-//   fistChristmasDay,
-//   secondChristmasDay,
-//   easterSunday,
-//   easterMonday,
-//   corpusChristi,
-//   goodFriday,
-//   pentecostSunday,
-//   pentecostMonday,
-//   AscensionDay,
-// ];
+  // Array für die Feiertage:
+  const holidays = [
+    { date: newYearsDay, name: "Neujahr" },
+    { date: laborDay, name: "Tag der Arbeit" },
+    { date: germanUnityDay, name: "Tag der Deutschen Einheit" },
+    { date: fistChristmasDay, name: "der erste Weihnachtstag" },
+    { date: secondChristmasDay, name: "der zweite Weihnachtstag" },
+    { date: easterSunday, name: "Ostersonntag" },
+    { date: easterMonday, name: "Ostermontag" },
+    { date: corpusChristi, name: "Fronleichnam" },
+    { date: goodFriday, name: "Karfreitag" },
+    { date: pentecostSunday, name: "Pfingstsonntag" },
+    { date: pentecostMonday, name: "Pfingstmontag" },
+    { date: AscensionDay, name: "Christi Himmelfahrt" },
+  ];
+  const currentHoliday = holidays.find(
+    (holiday) => holiday.date.getTime() === date.getTime()
+  );
+
+  return currentHoliday ? currentHoliday.name : false;
+}
 
 // // --- Funktionen --- //
 
@@ -273,103 +275,6 @@ async function generateHistoryList(monthIndex, day, index) {
 
 // clickMonthButton();
 
-// // Funktion um das Kalenderblatt im HTML zu generieren:
-// function createCalendarTable(today) {
-//   let year = today.getFullYear();
-//   let month = today.getMonth();
-//   // Den ersten Tag des aktuellen Monats feststellen:
-//   let calendarFirstInMonth = new Date(year, month, 1);
-//   // Was ist der erste für ein Wochentag:
-//   let calendarFirstInMonthWeekday = calendarFirstInMonth.getDay();
-//   // Montag auf "0" setzen, damit der Kalender an einem Montag beginnt.
-//   // (1-), damit der Kalender soviele Zellen zurück geht, bis ein Montag erreicht wird
-//   let calendarFirstDay = new Date(
-//     year,
-//     month,
-//     1 - ((calendarFirstInMonthWeekday - 1 + 7) % 7)
-//   );
-//   let calendarLastInMonth = new Date(year, month + 1, 0);
-//   // Der Kalender endet pro Reihe auf einen Sonntag. Falls der Monat nicht
-//   // an einem Sonntag endet, werden so viele Zellen addiert, bis Sonntag erreicht ist.
-//   let calendarLastDay = new Date(
-//     year,
-//     month,
-//     calendarLastInMonth.getDate() + ((7 - calendarLastInMonth.getDay()) % 7)
-//   );
-//   let datum = new Date(
-//     calendarFirstDay.getFullYear(),
-//     calendarFirstDay.getMonth(),
-//     calendarFirstDay.getDate()
-//   );
-//   const calendarTable = document.getElementById("calendarTableBody");
-//   // vor dem kreiren einmal inhalt tabelle löschen
-//   calendarTable.innerHTML = "";
-//   // Variable tr anfangs leer, weil sie erst erzeugt wird, sobald eine neue Woche beginnt
-//   let tr;
-//   // Schleife starten, die so lange läuft bis der letzte tag
-//   // in der Kalenderblattreihe erreicht oder überschritten wird:
-//   while (datum <= calendarLastDay) {
-//     // neue Tabellenreihe, wenn Montag ist:
-//     if (datum.getDay() === 1) {
-//       tr = document.createElement("tr");
-//     }
-//     let td = document.createElement("td");
-//     // Text in Zelle auf aktuelle Tage im Monat setzen:
-//     td.textContent = datum.getDate();
-//     // prüfen, ob die Tage zu einem anderen Monat gehören:
-//     if (datum.getMonth() !== today.getMonth()) {
-//       td.classList.add("otherMonth");
-//     }
-//     // Prüfung ob das heutige Datum dieser Tag ist
-//     if (
-//       today.getMonth() === datum.getMonth() &&
-//       today.getDate() === datum.getDate()
-//     ) {
-//       td.classList.add("today");
-//     }
-//     // Feiertage im Array durchgehen und prüfen ob Datum übereinstimmt:
-//     for (let h of holiday) {
-//       if (
-//         h.getFullYear() === datum.getFullYear() &&
-//         h.getMonth() === datum.getMonth() &&
-//         h.getDate() === datum.getDate()
-//       ) {
-//         td.classList.add("holiday");
-//       }
-//     }
-//     tr.appendChild(td);
-//     // Wenn Sonntag erreicht ist, Reihe zu Ende:
-//     if (datum.getDay() === 0) {
-//       calendarTable.appendChild(tr);
-//     }
-//     // Datum um einen Tag erhöhen, um Schleife auf nächsten
-//     // Kalendertag zu verschieben:
-//     datum.setDate(datum.getDate() + 1);
-//   }
-// }
-// // Funktion mit aktuellem Datum ausführen:
-// createCalendarTable(dateToday);
-// // Funktion um die Historischen Ereignisse zu erhalten:
-// async function createHistoricalEvent(month, day, index) {
-//   const list = document.getElementById("listData");
-//   const listItem = document.createElement("li");
-//   try {
-//     const response = await fetch(
-//       `https://history.muffinlabs.com/date/${month + 1}/${day}`
-//     );
-//     const data = await response.json();
-//     listItem.innerText = `${data.data.Events[index].year}: ${data.data.Events[index].text}`;
-//   } catch (error) {
-//     console.error("Fehler beim Laden:", error);
-//     throw error;
-//   }
-//   list.appendChild(listItem);
-// }
-
-// for (let i = 0; i < 5; i++) {
-//   createHistoricalEvent(month, day, i);
-// }
-
 // // Damit einzelne Zahlen sich nicht von den doppelten unterscheiden,
 // // füge ich eine "0" vor die einzelnen Zahlen hinzu:
 // function finalDatePeriod() {
@@ -383,67 +288,6 @@ async function generateHistoryList(monthIndex, day, index) {
 //   if (day < 22) return "dritte";
 //   if (day < 29) return "vierte";
 //   else return "fünfte";
-// }
-// // Ausgabe ob Schaltjahr:
-// function getDaysInYear() {
-//   if (isLeapYear === true) return 366;
-//   else return 365;
-// }
-// // Berechnung von Ostersonntag nach Gauß:
-// function getEasterSunday(year) {
-//   const a = year % 19;
-//   const b = Math.floor(year / 100);
-//   const c = year % 100;
-//   const d = Math.floor(b / 4);
-//   const e = b % 4;
-//   const f = Math.floor((b + 8) / 25);
-//   const g = Math.floor((b - f + 1) / 3);
-//   const h = (19 * a + b - d - g + 15) % 30;
-//   const i = Math.floor(c / 4);
-//   const k = c % 4;
-//   const l = (32 + 2 * e + 2 * i - h - k) % 7;
-//   const m = Math.floor((a + 11 * h + 22 * l) / 451);
-//   const n = (h + l - 7 * m + 114) % 31;
-//   const day = n + 1;
-//   const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
-//   return new Date(year, month, day);
-// }
-// // Berechnung Christi Himmelfahrt anhand von Ostersonntag:
-// function getAscensionDay(year) {
-//   const easterSunday = getEasterSunday(year);
-//   return new Date(easterSunday.getTime() + 39 * 24 * 60 * 60 * 1000);
-// }
-// // Berechnung von Pfingstsonntag anhand von Ostersonntag:
-// function getPentecostSunday(year) {
-//   const easterSunday = getEasterSunday(year);
-//   return new Date(easterSunday.getTime() + 49 * 24 * 60 * 60 * 1000);
-// }
-// // Funktion um festzustellen, ob es das selbe Datum ist:
-// function isSameDay(a, b) {
-//   return (
-//     a.getFullYear() == b.getFullYear() &&
-//     a.getMonth() == b.getMonth() &&
-//     a.getDate() == b.getDate()
-//   );
-// }
-// // Überprüfen ob heute ein Feiertag ist:
-// function isHoliday() {
-//   if (isSameDay(dateToday, newYearsDay)) return "ist Neujahr";
-//   if (isSameDay(dateToday, corpusChristi)) return "ist Fronleichnam";
-//   if (isSameDay(dateToday, pentecostMonday)) return "ist Pfingstmontag";
-//   if (isSameDay(dateToday, fistChristmasDay))
-//     return "ist der erste Weihnachtstag";
-//   if (isSameDay(dateToday, secondChristmasDay))
-//     return "ist der zweite Weihnachtstag";
-//   if (isSameDay(dateToday, goodFriday)) return "ist Karfreitag";
-//   if (isSameDay(dateToday, easterMonday)) return "ist Ostermontag";
-//   if (isSameDay(dateToday, laborDay)) return "ist Tag der Arbeit";
-//   if (isSameDay(dateToday, germanUnityDay))
-//     return "ist Tag der Deutschen Einheit";
-//   if (isSameDay(dateToday, easterSunday)) return "ist Ostersonntag";
-//   if (isSameDay(dateToday, pentecostSunday)) return "ist Pfingstsonntag";
-//   if (isSameDay(dateToday, AscensionDay)) return "ist Christi Himmelfahrt";
-//   else return "ist kein gesetzlicher Feiertag";
 // }
 
 generateCalender(dateToday);
