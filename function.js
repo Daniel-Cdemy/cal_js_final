@@ -7,6 +7,17 @@ const dateToday = new Date(
 );
 let dateSelected = dateToday;
 
+const back = document
+  .getElementById("buttonBackwards")
+  .addEventListener("click", () => {
+    changeMonth(-1);
+  });
+const forward = document
+  .getElementById("buttonForward")
+  .addEventListener("click", () => {
+    changeMonth(1);
+  });
+
 function generateCalender(date) {
   const year = date.getFullYear();
   const monthIndex = date.getMonth();
@@ -25,14 +36,14 @@ function generateCalender(date) {
     "Dezember",
   ];
   const monthName = monthNames[monthIndex];
-  const day = date.getDate();
-  const dayNumber = date.getDay();
-  generateHeader(year, monthName, day);
-  generateInfotext(date, year, monthName, day, dayNumber, monthIndex);
+  const dayNumber = date.getDate();
+  const weekDayNumber = date.getDay();
+  generateHeader(year, monthName, dayNumber);
+  generateInfotext(date, year, monthName, dayNumber, weekDayNumber, monthIndex);
   generateTableHeader(monthName, year);
   createCalendarTable(date, dateToday, year, monthIndex);
-  generateHistoryHeader(day, monthName);
-  generateHistoryList(monthIndex, day, 5);
+  generateHistoryHeader(dayNumber, monthName);
+  generateHistoryList(monthIndex, dayNumber, 5);
 }
 
 function generateHeader(year, monthName, day) {
@@ -40,7 +51,14 @@ function generateHeader(year, monthName, day) {
   headline.innerText = `Kalenderblatt vom ${day}. ${monthName} ${year}`;
 }
 
-function generateInfotext(date, year, monthName, day, dayNumber, monthIndex) {
+function generateInfotext(
+  date,
+  year,
+  monthName,
+  day,
+  weekDayNumber,
+  monthIndex
+) {
   const lastDayInMonth = new Date(year, monthIndex + 1, 0).getDate();
   const dayNames = [
     "Sonntag",
@@ -51,19 +69,21 @@ function generateInfotext(date, year, monthName, day, dayNumber, monthIndex) {
     "Freitag",
     "Samstag",
   ];
-  const dayName = dayNames[dayNumber];
+  const dayName = dayNames[weekDayNumber];
   const holiday = isHoliday(date)
     ? isHoliday(date)
     : "kein gesetzlicher Feiertag";
-  const ordinalWeekday = "xxx";
-  const remainingDaysOfYear = "xxx";
-  const dayCount = "xxx";
+  const remainingDaysOfYear = getRemainingDaysOfYear(date);
+  const ordinalWeekday = getOrdinalWeekday(day);
+  const dayCount = getPassedDaysOfYear(date);
 
   const infoText = document.getElementsByClassName("infoText")[0];
-  infoText.innerText = `Der ${day}. ${monthName} ${year} ist ein ${dayName} und zwar
-  der ${ordinalWeekday} ${dayName} im ${monthName} des Jahres ${year}. Es handelt sich um den ${dayCount} Tag des
-  Jahres, was bedeutet, dass es noch ${remainingDaysOfYear} Tage bis zum Jahresende sind. Der ${monthName} hat
-  insgesamt ${lastDayInMonth} Tage. Heute ist ${holiday} in Deutschland`;
+  infoText.innerText = `Der ${day}. ${monthName} ${year} ist ein ${dayName}\
+    und zwar der ${ordinalWeekday} ${dayName} im ${monthName} des Jahres ${year}.\
+    Es handelt sich um den ${dayCount}. Tag des Jahres, was bedeutet,\
+    dass es noch ${remainingDaysOfYear} Tage bis zum Jahresende sind.\
+    Der ${monthName} hat insgesamt ${lastDayInMonth} Tage.\
+    Heute ist ${holiday} in Deutschland.`;
 }
 
 function generateTableHeader(monthName, year) {
@@ -110,7 +130,6 @@ function createCalendarTable(date, today, year, monthIndex) {
     calendarFirstDay.setDate(calendarFirstDay.getDate() + 1);
   }
 }
-// createCalendarTable(dateSelected);
 
 function generateHistoryHeader(day, monthName) {
   const headline = document.getElementsByClassName("headline")[1];
@@ -136,46 +155,18 @@ async function generateHistoryList(monthIndex, day, count) {
   }
 }
 
-// let isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-// let daysInYear = getDaysInYear(year);
-
-// function getDaysInYear() {
-//   if (isLeapYear === true) return 366;
-//   else return 365;
-// }
-// document.querySelectorAll('[data-role="year"]').forEach((el) => {
-//   el.textContent = year;
-// });
-
-// // Um herauszufinden wie viele Tage vergangen sind,
-// // vergleiche ich das aktuelle Datum mit dem 01.01 diesen Jahres
-// // und ermittle die Differenz:
-// const dateStart = new Date(year, 0, 1);
-// let diffInMS = dateToday - dateStart;
-// let diffInDays = Math.floor(diffInMS / 86400000) + 1;
-// let finalDiffInDays = diffInDays + ".";
-// document.getElementById("diffStart").textContent = finalDiffInDays;
-
-// // Um herauszufinden wie viele Tage es noch bis zum Jahresende sind,
-// // ziehe ich die aktuellen Tage von den gesamten Tagen im Jahr ab:
-// let remainingDays = daysInYear - diffInDays;
-// document.getElementById("remainingDays").textContent = remainingDays;
-
-// // Der wievielte des tages ist es in dem Monat:
-// let day = dateToday.getDate();
-// let wievielte = getWievielte(day);
-// document.getElementById("wievielte").textContent = wievielte;
-
-// // Damit das Datum korrekt ausgegeben wird, füge ich ein "." nach jedem Tag hinzu:
-
-// const datePeriod = finalDatePeriod() + ".";
-// document.querySelectorAll('[data-role="day"]').forEach((el) => {
-//   el.textContent = datePeriod;
-// });
-
-// // Ermittlung des letzten Tages im aktuellen Monat:
-// const lastDayInMonth = new Date(year, month + 1, 0).getDate();
-// document.getElementById("lastDayInMonth").textContent = lastDayInMonth;
+function getRemainingDaysOfYear(date) {
+  const year = date.getFullYear();
+  const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  const totalDaysInYear = isLeapYear ? 366 : 365;
+  return totalDaysInYear - getPassedDaysOfYear(date);
+}
+function getPassedDaysOfYear(date) {
+  const year = date.getFullYear();
+  const dateStart = new Date(year, 0, 1);
+  const diffInMS = date - dateStart;
+  return Math.floor(diffInMS / 86400000) + 1;
+}
 
 // // Berechnung von Ostersonntag nach Gauß:
 function getEasterSunday(year) {
@@ -196,17 +187,14 @@ function getEasterSunday(year) {
   const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
   return new Date(year, month, day);
 }
-// Berechnung Christi Himmelfahrt anhand von Ostersonntag:
 function getAscensionDay(year) {
   const easterSunday = getEasterSunday(year);
   return new Date(easterSunday.getTime() + 39 * 24 * 60 * 60 * 1000);
 }
-// Berechnung von Pfingstsonntag anhand von Ostersonntag:
 function getPentecostSunday(year) {
   const easterSunday = getEasterSunday(year);
   return new Date(easterSunday.getTime() + 49 * 24 * 60 * 60 * 1000);
 }
-
 function isHoliday(date) {
   const year = date.getFullYear();
 
@@ -252,42 +240,16 @@ function isHoliday(date) {
   return currentHoliday ? currentHoliday.name : false;
 }
 
-// // --- Funktionen --- //
+function getOrdinalWeekday(day) {
+  if (day < 8) return "erste";
+  if (day < 15) return "zweite";
+  if (day < 22) return "dritte";
+  if (day < 29) return "vierte";
+  else return "fünfte";
+}
 
-// function clickMonthButton() {
-//   const monthButtonForward = document.getElementById("buttonForward");
-//   const monthButtonBackwards = document.getElementById("buttonBackwards");
-//   monthButtonForward.addEventListener("click", getNextMonth);
-//   monthButtonBackwards.addEventListener("click", getPreviousMonth);
-// }
-
-// function getNextMonth() {
-//   let nextMonth = new Date(year, month + 1, 1);
-//   let nextMonth1 = createCalendarTable(nextMonth);
-//   return nextMonth1;
-// }
-
-// function getPreviousMonth() {
-//   let previousMonth = new Date(year, month - 1, 1);
-//   let previousMonth1 = createCalendarTable(previousMonth);
-//   return previousMonth1;
-// }
-
-// clickMonthButton();
-
-// // Damit einzelne Zahlen sich nicht von den doppelten unterscheiden,
-// // füge ich eine "0" vor die einzelnen Zahlen hinzu:
-// function finalDatePeriod() {
-//   if (day < 10) return "0" + day;
-//   else return day;
-// }
-// // Der wievielte Wochentag im Monat:
-// function getWievielte() {
-//   if (day < 8) return "erste";
-//   if (day < 15) return "zweite";
-//   if (day < 22) return "dritte";
-//   if (day < 29) return "vierte";
-//   else return "fünfte";
-// }
+function changeMonth(direction) {
+  alert(direction);
+}
 
 generateCalender(dateToday);
