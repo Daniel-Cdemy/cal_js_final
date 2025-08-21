@@ -9,30 +9,22 @@
     <script defer src="function.js"></script>
   </head>
   <body>
-    <div class="grid-container">
-      <div class="item-clock">
-        <div class="myclock">
-          <div class="hour"></div>
-          <div class="minute"></div>
-          <div class="second"></div>
-          <span></span>
-        </div>
-      </div>
+    <div class="gridContainer">
       <video class="video" autoplay muted loop>
         <source src="background.mp4" type="video/mp4" />
       </video>
-      <div class="item-headline">
+      <div class="itemHeadline">
         <h1 class="headline"></h1>
-        <div class="transbox">
+        <div class="transBox">
           <p class="infoText"></p>
         </div>
       </div>
-      <div class="item-cal">
-        <div class="tablec">
-          <table class="content-table">
+      <div class="itemCal">
+        <div class="tableCal">
+          <table class="contentTable">
             <caption>
               <button id="buttonBackwards" type="button"><</button>
-                <captionTitle class="captionTitle"></captionTitle>
+              <captionTitle class="captionTitle"></captionTitle>
               <button id="buttonForward" type="button">></button>
             </caption>
             <thead>
@@ -50,13 +42,9 @@
           </table>
         </div>
       </div>
-      <div class="item-list">
-        <h2 class="headline">
-          Historische </br> Ereignisse am </br>
-          <span data-role="day">Tag</span>
-          <span data-role="monthname">Monat</span>
-        </h2>
-        <div class="listc transbox">
+      <div class="itemList">
+        <h2 class="headline"></h2>
+        <div class="listCal transBox">
           <ul id="listData"></ul>
         </div>
       </div>

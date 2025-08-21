@@ -1,5 +1,5 @@
 // // --- START --- //
-const today = new Date(2024, 1, 7);
+const today = new Date();
 const dateToday = new Date(
   today.getFullYear(),
   today.getMonth(),
