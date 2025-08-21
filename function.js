@@ -21,12 +21,12 @@ const monthNames = [
   "Dezember",
 ];
 
-const back = document
+const monthBackward = document
   .getElementById("buttonBackwards")
   .addEventListener("click", () => {
     changeMonth(-1);
   });
-const forward = document
+const monthForward = document
   .getElementById("buttonForward")
   .addEventListener("click", () => {
     changeMonth(1);
@@ -84,14 +84,13 @@ function generateInfotext(
   const remainingDaysOfYear = getRemainingDaysOfYear(date);
   const ordinalWeekday = getOrdinalWeekday(day);
   const dayCount = getPassedDaysOfYear(date);
-
   const infoText = document.getElementsByClassName("infoText")[0];
   infoText.innerText = `Der ${day}. ${monthName} ${year} ist ein ${dayName}\
-    und zwar der ${ordinalWeekday} ${dayName} im ${monthName} des Jahres ${year}.\
-    Es handelt sich um den ${dayCount}. Tag des Jahres, was bedeutet,\
-    dass es noch ${remainingDaysOfYear} Tage bis zum Jahresende sind.\
-    Der ${monthName} hat insgesamt ${lastDayInMonth} Tage.\
-    Heute ist ${holiday} in Deutschland.`;
+  und zwar der ${ordinalWeekday} ${dayName} im ${monthName} des Jahres ${year}.\
+  Es handelt sich um den ${dayCount}. Tag des Jahres, was bedeutet,\
+  dass es noch ${remainingDaysOfYear} Tage bis zum Jahresende sind.\
+  Der ${monthName} hat insgesamt ${lastDayInMonth} Tage.\
+  Heute ist ${holiday} in Deutschland.`;
 }
 
 function generateTableHeader(monthName, year) {
@@ -102,7 +101,7 @@ function generateTableHeader(monthName, year) {
 function createCalendarTable(date, today, year, monthIndex) {
   let calendarFirstInMonth = new Date(year, monthIndex, 1);
   let calendarFirstInMonthWeekday = calendarFirstInMonth.getDay();
-  let calendarFirstDay = new Date(
+  let dateCount = new Date(
     year,
     monthIndex,
     1 - ((calendarFirstInMonthWeekday - 1 + 7) % 7)
@@ -115,27 +114,34 @@ function createCalendarTable(date, today, year, monthIndex) {
   );
   const calendarTable = document.getElementById("calendarTableBody");
   calendarTable.innerHTML = "";
-  let tr;
-  while (calendarFirstDay <= calendarLastDay) {
-    if (calendarFirstDay.getDay() === 1) {
+  while (dateCount <= calendarLastDay) {
+    const currentDate = new Date(dateCount);
+    if (dateCount.getDay() === 1) {
       tr = document.createElement("tr");
     }
     let td = document.createElement("td");
-    td.textContent = calendarFirstDay.getDate();
-    if (calendarFirstDay.getMonth() !== date.getMonth()) {
+    td.addEventListener("click", () => {
+      dateSelected = currentDate;
+      generateCalender(currentDate);
+    });
+    td.textContent = dateCount.getDate();
+    if (dateCount.getMonth() !== date.getMonth()) {
       td.classList.add("otherMonth");
     }
-    if (today.getTime() === calendarFirstDay.getTime()) {
+    if (dateSelected.getTime() === dateCount.getTime()) {
+      td.classList.add("dateSelected");
+    }
+    if (today.getTime() === dateCount.getTime()) {
       td.classList.add("today");
     }
-    if (isHoliday(calendarFirstDay)) {
+    if (isHoliday(dateCount)) {
       td.classList.add("holiday");
     }
     tr.appendChild(td);
-    if (calendarFirstDay.getDay() === 0) {
+    if (dateCount.getDay() === 0) {
       calendarTable.appendChild(tr);
     }
-    calendarFirstDay.setDate(calendarFirstDay.getDate() + 1);
+    dateCount.setDate(dateCount.getDate() + 1);
   }
 }
 
@@ -146,6 +152,7 @@ function generateHistoryHeader(day, monthName) {
 
 async function generateHistoryList(monthIndex, day, count) {
   const list = document.getElementById("listData");
+  list.innerHTML = "";
   for (let i = 0; i < count; i++) {
     const listItem = document.createElement("li");
     try {
@@ -154,6 +161,8 @@ async function generateHistoryList(monthIndex, day, count) {
       );
       const data = await response.json();
       const historicalEvent = data.data.Events[data.data.Events.length - i - 1];
+      if (historicalEvent.text.length > 100)
+        historicalEvent.text = `${historicalEvent.text.substring(0, 100)}...`;
       listItem.innerText = `${historicalEvent.year}: ${historicalEvent.text}`;
     } catch (error) {
       console.error("Fehler beim Laden:", error);
