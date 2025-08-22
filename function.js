@@ -44,6 +44,7 @@ function generateCalender(date) {
   generateHeader(year, monthName, dayNumber);
   generateInfotext(date, year, monthName, dayNumber, weekDayNumber, monthIndex);
   generateTableHeader(monthName, year);
+  generateTableButtons(monthNames, monthIndex, year);
   createCalendarTable(date, dateToday, year, monthIndex);
   generateHistoryHeader(dayNumber, monthName);
   generateHistoryList(monthIndex, dayNumber, 5);
@@ -51,7 +52,8 @@ function generateCalender(date) {
 
 function generateHeader(year, monthName, day) {
   const headline = document.getElementsByClassName("headline")[0];
-  headline.innerText = `Kalenderblatt vom ${day}. ${monthName} ${year}`;
+  headline.innerText = `Kalenderblatt vom 
+  ${day}. ${monthName} ${year}`;
 }
 
 function generateInfotext(
@@ -91,6 +93,19 @@ function generateInfotext(
 function generateTableHeader(monthName, year) {
   const captionTitle = document.getElementsByClassName("captionTitle")[0];
   captionTitle.innerText = `${monthName} ${year}`;
+}
+
+function generateTableButtons(months, monthIndex, year) {
+  const buttonBackwards = document.getElementById("buttonBackwards");
+  const buttonForward = document.getElementById("buttonForward");
+
+  const prevIndex = (monthIndex - 1 + 12) % 12;
+  const prevYear = monthIndex === 0 ? year - 1 : year;
+  buttonBackwards.innerText = `${months[prevIndex]} ${year}`;
+
+  const nextIndex = (monthIndex + 1) % 12;
+  const nextYear = monthIndex === 11 ? year + 1 : year;
+  buttonForward.innerText = `${months[nextIndex]} ${year}`;
 }
 
 function createCalendarTable(date, today, year, monthIndex) {
@@ -150,7 +165,8 @@ function generateCalendarTable(date) {
 
 function generateHistoryHeader(day, monthName) {
   const headline = document.getElementsByClassName("headline")[1];
-  headline.innerText = `Historische Ereignisse am: ${day}. ${monthName}`;
+  headline.innerText = `Historische Ereignisse am
+  ${day}. ${monthName}:`;
 }
 
 async function generateHistoryList(monthIndex, day, count) {
@@ -271,7 +287,7 @@ function changeMonth(direction) {
   const year = dateSelected.getFullYear();
   const month = dateSelected.getMonth();
   dateSelected = new Date(year, month + direction);
-  generateCalendarTable(dateSelected);
+  generateCalender(dateSelected);
 }
 
 generateCalender(dateToday);
