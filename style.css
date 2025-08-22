@@ -194,6 +194,14 @@ body {
   color: whitesmoke !important;
 }
 
+.dateSelected {
+  background: rgb(170, 122, 0, 0.7);
+  border-color: black;
+  border-width: 10px;
+  border-radius: 50%;
+  color: whitesmoke;
+}
+
 .otherMonth {
   color: rgba(0, 0, 0, 0.5) !important;
   opacity: 0.5;
@@ -202,9 +210,4 @@ body {
 .today {
   background: rgb(170, 122, 0);
   color: whitesmoke !important;
-}
-
-.dateSelected {
-  background: green;
-  color: whitesmoke;
 }
