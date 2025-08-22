@@ -1,11 +1,25 @@
 // // --- START --- //
 const today = new Date();
+
 const dateToday = new Date(
   today.getFullYear(),
   today.getMonth(),
   today.getDate()
 );
+
 let dateSelected = dateToday;
+
+const monthBackward = document
+  .getElementById("buttonBackwards")
+  .addEventListener("click", () => {
+    changeMonth(-1);
+  });
+const monthForward = document
+  .getElementById("buttonForward")
+  .addEventListener("click", () => {
+    changeMonth(1);
+  });
+
 const monthNames = [
   "Januar",
   "Februar",
@@ -21,17 +35,6 @@ const monthNames = [
   "Dezember",
 ];
 
-const monthBackward = document
-  .getElementById("buttonBackwards")
-  .addEventListener("click", () => {
-    changeMonth(-1);
-  });
-const monthForward = document
-  .getElementById("buttonForward")
-  .addEventListener("click", () => {
-    changeMonth(1);
-  });
-
 function generateCalender(date) {
   const year = date.getFullYear();
   const monthIndex = date.getMonth();
@@ -44,14 +47,6 @@ function generateCalender(date) {
   createCalendarTable(date, dateToday, year, monthIndex);
   generateHistoryHeader(dayNumber, monthName);
   generateHistoryList(monthIndex, dayNumber, 5);
-}
-
-function generateCalendarTable(date) {
-  const year = date.getFullYear();
-  const monthIndex = date.getMonth();
-  const monthName = monthNames[monthIndex];
-  generateTableHeader(monthName, year);
-  createCalendarTable(date, dateToday, year, monthIndex);
 }
 
 function generateHeader(year, monthName, day) {
@@ -124,15 +119,15 @@ function createCalendarTable(date, today, year, monthIndex) {
       dateSelected = currentDate;
       generateCalender(currentDate);
     });
-    td.textContent = dateCount.getDate();
-    if (dateCount.getMonth() !== date.getMonth()) {
-      td.classList.add("otherMonth");
-    }
     if (dateSelected.getTime() === dateCount.getTime()) {
       td.classList.add("dateSelected");
     }
     if (today.getTime() === dateCount.getTime()) {
       td.classList.add("today");
+    }
+    td.textContent = dateCount.getDate();
+    if (dateCount.getMonth() !== date.getMonth()) {
+      td.classList.add("otherMonth");
     }
     if (isHoliday(dateCount)) {
       td.classList.add("holiday");
@@ -143,6 +138,14 @@ function createCalendarTable(date, today, year, monthIndex) {
     }
     dateCount.setDate(dateCount.getDate() + 1);
   }
+}
+
+function generateCalendarTable(date) {
+  const year = date.getFullYear();
+  const monthIndex = date.getMonth();
+  const monthName = monthNames[monthIndex];
+  generateTableHeader(monthName, year);
+  createCalendarTable(date, dateToday, year, monthIndex);
 }
 
 function generateHistoryHeader(day, monthName) {
@@ -161,8 +164,8 @@ async function generateHistoryList(monthIndex, day, count) {
       );
       const data = await response.json();
       const historicalEvent = data.data.Events[data.data.Events.length - i - 1];
-      if (historicalEvent.text.length > 100)
-        historicalEvent.text = `${historicalEvent.text.substring(0, 100)}...`;
+      if (historicalEvent.text.length > 250)
+        historicalEvent.text = `${historicalEvent.text.substring(0, 250)}...`;
       listItem.innerText = `${historicalEvent.year}: ${historicalEvent.text}`;
     } catch (error) {
       console.error("Fehler beim Laden:", error);
@@ -185,7 +188,6 @@ function getPassedDaysOfYear(date) {
   return Math.floor(diffInMS / 86400000) + 1;
 }
 
-// // Berechnung von Ostersonntag nach Gauß:
 function getEasterSunday(year) {
   const a = year % 19;
   const b = Math.floor(year / 100);
@@ -204,25 +206,25 @@ function getEasterSunday(year) {
   const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
   return new Date(year, month, day);
 }
+
 function getAscensionDay(year) {
   const easterSunday = getEasterSunday(year);
   return new Date(easterSunday.getTime() + 39 * 24 * 60 * 60 * 1000);
 }
+
 function getPentecostSunday(year) {
   const easterSunday = getEasterSunday(year);
   return new Date(easterSunday.getTime() + 49 * 24 * 60 * 60 * 1000);
 }
+
 function isHoliday(date) {
   const year = date.getFullYear();
 
-  // Feste Feiertage:
   const newYearsDay = new Date(year, 0, 1);
   const laborDay = new Date(year, 4, 1);
   const germanUnityDay = new Date(year, 9, 3);
   const fistChristmasDay = new Date(year, 11, 25);
   const secondChristmasDay = new Date(year, 11, 26);
-
-  // Bewegliche Feiertage:
   const easterSunday = getEasterSunday(year);
   const easterMonday = new Date(easterSunday);
   easterMonday.setDate(easterMonday.getDate() + 1);
@@ -235,7 +237,6 @@ function isHoliday(date) {
   pentecostMonday.setDate(pentecostMonday.getDate() + 1);
   const AscensionDay = getAscensionDay(year);
 
-  // Array für die Feiertage:
   const holidays = [
     { date: newYearsDay, name: "Neujahr" },
     { date: laborDay, name: "Tag der Arbeit" },
@@ -250,6 +251,7 @@ function isHoliday(date) {
     { date: pentecostMonday, name: "Pfingstmontag" },
     { date: AscensionDay, name: "Christi Himmelfahrt" },
   ];
+
   const currentHoliday = holidays.find(
     (holiday) => holiday.date.getTime() === date.getTime()
   );
@@ -268,7 +270,7 @@ function getOrdinalWeekday(day) {
 function changeMonth(direction) {
   const year = dateSelected.getFullYear();
   const month = dateSelected.getMonth();
-  dateSelected = new Date(year, month + direction, 1);
+  dateSelected = new Date(year, month + direction);
   generateCalendarTable(dateSelected);
 }
 
