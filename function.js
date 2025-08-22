@@ -287,7 +287,7 @@ function changeMonth(direction) {
   const year = dateSelected.getFullYear();
   const month = dateSelected.getMonth();
   dateSelected = new Date(year, month + direction);
-  generateCalender(dateSelected);
+  generateCalendarTable(dateSelected);
 }
 
 generateCalender(dateToday);
