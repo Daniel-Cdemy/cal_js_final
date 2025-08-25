@@ -98,6 +98,19 @@ function generateTableHeader(date) {
   captionTitle.innerText = `${monthName} ${year}`;
 }
 
+function generateTableButtons(months, monthIndex, year) {
+  const buttonBackwards = document.getElementById("buttonBackwards");
+  const buttonForward = document.getElementById("buttonForward");
+
+  const prevIndex = (monthIndex - 1 + 12) % 12;
+  const prevYear = monthIndex === 0 ? year - 1 : year;
+  buttonBackwards.innerText = `${months[prevIndex]} ${year}`;
+
+  const nextIndex = (monthIndex + 1) % 12;
+  const nextYear = monthIndex === 11 ? year + 1 : year;
+  buttonForward.innerText = `${months[nextIndex]} ${year}`;
+}
+
 function generateTableButtons(date) {
   const months = monthNames;
   const year = date.getFullYear();
@@ -178,10 +191,20 @@ function createCalendarTable(date) {
   }
 }
 
+function generateCalendarTable(date) {
+  const year = date.getFullYear();
+  const monthIndex = date.getMonth();
+  const monthName = monthNames[monthIndex];
+  generateTableHeader(monthName, year);
+  createCalendarTable(date, dateToday, year, monthIndex);
+}
+
 function generateHistoryHeader(date) {
   const day = date.getDate();
   const monthName = monthNames[date.getMonth()];
   const headline = document.getElementsByClassName("headline")[1];
+  headline.innerText = `Historische Ereignisse am
+  ${day}. ${monthName}:`;
   headline.innerText = `Historische Ereignisse am
   ${day}. ${monthName}:`;
 }
