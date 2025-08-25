@@ -48,41 +48,51 @@ body {
 }
 
 #buttonBackwards {
+  font-family: "Times New Roman", Times, serif;
+  text-transform: uppercase;
+  font-size: 20px;
   transition-duration: 0.2s;
-  border: none;
+  border: 10px;
   background: transparent;
-  font-size: 25px;
   margin: 20px;
   color: whitesmoke;
   justify-content: center;
   text-align: center;
+  box-shadow: 0 0 10px whitesmoke;
+  border-radius: 8px;
+  padding: 10px 20px;
 }
 
 #buttonBackwards:hover {
-  margin: 10px;
+  transform: scale(1.3);
   color: white;
   border: hidden;
-  border-radius: 33%;
+  border-radius: 8px;
   box-shadow: 0 0 10px whitesmoke;
   cursor: pointer;
 }
 
 #buttonForward {
+  font-family: "Times New Roman", Times, serif;
+  text-transform: uppercase;
+  font-size: 20px;
   transition-duration: 0.2s;
-  border: none;
+  border: 10px;
   background: transparent;
-  font-size: 25px;
   margin: 20px;
   color: whitesmoke;
   justify-content: center;
   text-align: center;
+  box-shadow: 0 0 10px whitesmoke;
+  border-radius: 8px;
+  padding: 10px 20px;
 }
 
 #buttonForward:hover {
-  margin: 10px;
+  transform: scale(1.3);
   color: white;
   border: hidden;
-  border-radius: 33%;
+  border-radius: 8px;
   box-shadow: 0 0 10px whitesmoke;
   cursor: pointer;
 }
@@ -168,6 +178,12 @@ body {
   box-shadow: 0 0 7px whitesmoke;
 }
 
+.captionTitle {
+  color: whitesmoke;
+  box-shadow: 0 0 7px whitesmoke;
+  text-shadow: 0 0 3px whitesmoke;
+}
+
 .tableCal {
   display: flex;
   justify-content: center;
@@ -189,9 +205,19 @@ body {
 }
 
 .holiday {
-  background: darkred;
+  background: darkred !important;
+  border-width: 10px;
+  border-radius: 50%;
   opacity: 0.85;
   color: whitesmoke !important;
+}
+
+.dateSelected {
+  background: rgb(170, 122, 0, 0.7);
+  opacity: 0.7 !important;
+  border-width: 10px;
+  border-radius: 50%;
+  color: whitesmoke;
 }
 
 .otherMonth {
@@ -201,10 +227,7 @@ body {
 
 .today {
   background: rgb(170, 122, 0);
+  border-width: 10px;
+  border-radius: 50%;
   color: whitesmoke !important;
-}
-
-.dateSelected {
-  background: green;
-  color: whitesmoke;
 }
